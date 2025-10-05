@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Professional } from '../../../models/professional.model';
+import { ProfessionalDetails } from '../../../models/professional.model';
 
 @Component({
   selector: 'app-top-rated-professional-card',
@@ -10,7 +10,7 @@ import { Professional } from '../../../models/professional.model';
   styleUrls: ['./top-rated-professional-card.component.css']
 })
 export class TopRatedProfessionalCardComponent {
-  @Input() professional!: Professional;
+  @Input() professional!: ProfessionalDetails;
   onViewProfile(): void {
     console.log(`Viewing profile for ${this.professional.name}`);
     // Navigate to professional detail page
