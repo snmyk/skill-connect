@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopRatedProfessionalCardComponent } from './cards/top-rated-professional-card.component';
-import { Professional } from '../../models/professional.model';
+import { ProfessionalDetails } from '../../models/professional.model';
 
 @Component({
     selector: 'app-top-rated-professionals',
@@ -11,7 +11,7 @@ import { Professional } from '../../models/professional.model';
     styleUrls: ['./top-rated-professionals.component.css']
 })
 export class TopRatedProfessionalsComponent {
-    professionals: Professional[] = [
+    professionals: ProfessionalDetails[] = [
         {
             id: '1',
             name: 'Sarah Johnson',

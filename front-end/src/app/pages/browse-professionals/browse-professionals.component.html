@@ -1,0 +1,56 @@
+<div class="browse-page">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Browse Professionals</h1>
+            <p class="page-subtitle">Find the perfect professional for your needs</p>
+        </div>
+
+        <div class="filter-section">
+            <div class="search-box">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search by name, service, or skill..."
+                    [(ngModel)]="searchQuery"
+                    (input)="onSearchChange()"
+                />
+            </div>
+
+            <select class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()">
+                <option value="rating">Rating</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="experience">Experience</option>
+            </select>
+        </div>
+
+        <div class="category-filters">
+            <button
+                *ngFor="let category of categories"
+                class="category-btn"
+                [class.active]="selectedCategory === category"
+                (click)="onCategorySelect(category)"
+            >
+                {{ category }}
+            </button>
+        </div>
+
+        <p class="results-count">Showing {{ filteredProfessionals.length }} professionals</p>
+
+        <div class="professionals-grid">
+            <app-professional-card
+                *ngFor="let professional of filteredProfessionals"
+                [professional]="professional"
+                (viewProfile)="onViewProfile($event)"
+                (contact)="onContact($event)"
+            ></app-professional-card>
+        </div>
+
+        <div *ngIf="filteredProfessionals.length === 0" class="no-results">
+            <p>No professionals found matching your criteria.</p>
+        </div>
+    </div>
+</div>
