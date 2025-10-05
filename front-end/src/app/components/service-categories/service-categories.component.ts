@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ServiceCategoryCardComponent } from './components/service-category-card.component';
+import { ServiceCategoryCardComponent } from './cards/service-category-card.component';
 import { ServiceCategory } from '../../models/service-category.model';
 
 @Component({
