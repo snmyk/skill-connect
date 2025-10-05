@@ -1,0 +1,21 @@
+<section class="professionals-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Top-Rated Professionals</h2>
+            <p class="section-subtitle">Meet some of our highest-rated service providers</p>
+        </div>
+        
+        <div class="professionals-grid">
+            <app-top-rated-professional-card
+            *ngFor="let professional of professionals"
+            [professional]="professional"
+            ></app-top-rated-professional-card>
+        </div>
+
+        <div class="view-all-section">
+            <button class="view-all-btn" (click)="onViewAll()">
+            View All Professionals
+            </button>
+        </div>
+    </div>
+</section>
