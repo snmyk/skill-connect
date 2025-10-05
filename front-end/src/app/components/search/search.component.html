@@ -1,0 +1,43 @@
+<section class="search-component">
+    <div class="search-component-overlay"></div>
+    <div class="search-component-content">
+        <h1 class="search-component-title">
+            Find Skilled Professionals for<br>Every Job
+        </h1>
+        <p class="search-component-subtitle">
+            Connect with verified professionals in your area. From plumbing to cleaning,<br>
+            find the right expert for your needs.
+        </p>
+    
+        <div class="search-container">
+            <div class="search-box">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <input
+                    type="text"
+                    class="search-input"
+                    placeholder="What service do you need?"
+                    [(ngModel)]="searchQuery"
+                    (input)="onSearchInput()"
+                    (focus)="showSuggestions = true"
+                    (blur)="onBlur()"
+                />
+                <button class="search-button" (click)="onSearch()">
+                    Search
+                </button>
+            </div>
+            
+            <div class="suggestions" *ngIf="showSuggestions && filteredResults.length > 0">
+                <div 
+                    class="suggestion-item" 
+                    *ngFor="let result of filteredResults"
+                    (mousedown)="selectSuggestion(result)"
+                >
+                    <div class="suggestion-service">{{ result.service }}</div>
+                    <div class="suggestion-meta">{{ result.name }} • {{ result.location }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
