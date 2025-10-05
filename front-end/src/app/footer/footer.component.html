@@ -1,0 +1,31 @@
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-skill">Skill</span>
+                    <span class="logo-connect">Connect</span>
+                </div>
+                <p class="brand-description">
+                    Connecting skilled professionals with those who need their expertise.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-column" *ngFor="let section of footerSections">
+                    <h3 class="column-title">{{ section.title }}</h3>
+                    <ul class="link-list">
+                    <li *ngFor="let link of section.links">
+                        <a [href]="link.url" class="footer-link">{{ link.label }}</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 SkillConnect. All rights reserved.</p>
+            <p class="powered-by">Powered by SkillConnect</p>
+        </div>
+    </div>
+</footer>
