@@ -1,0 +1,60 @@
+.join-page {
+    min-height: 100vh;
+    background-color: #f9fafb;
+    padding: 3rem 1rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 0.5rem 0;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.help-section {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+}
+
+.help-section p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.support-link {
+    color: #14b8a6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.support-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .join-page {
+        padding: 2rem 1rem;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+    }
+}

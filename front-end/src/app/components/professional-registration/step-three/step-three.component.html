@@ -1,0 +1,88 @@
+<div class="step-content">
+    <!-- Validation Error Summary -->
+    <div class="validation-summary" *ngIf="(!isValid || !canSubmit) && getFieldErrors().length > 0">
+        <h4>Please complete the following required fields:</h4>
+        <ul>
+            <li *ngFor="let error of getFieldErrors()">{{ error }}</li>
+        </ul>
+    </div>
+
+    <div class="upload-section">
+        <label class="label">Profile Photo *</label>
+        <div class="upload-area" [class.upload-area-error]="!formData.profilePhoto && (!isValid || !canSubmit)">
+            <div class="avatar-preview">
+                <div 
+                    *ngIf="formData.profilePhoto; else defaultAvatar" 
+                    class="preview-image"
+                >
+                    <span class="file-uploaded">✓ Photo uploaded</span>
+                </div>
+                <ng-template #defaultAvatar>
+                    <svg class="user-icon" width="48" height="48" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+                    </svg>
+                </ng-template>
+            </div>
+            <button class="upload-btn" (click)="fileInput.click()">
+                {{ formData.profilePhoto ? 'Change Photo' : 'Upload Photo' }}
+            </button>
+            <input
+                #fileInput
+                type="file"
+                accept="image/*"
+                style="display: none"
+                (change)="onFileSelected($event)"
+            />
+            <p class="upload-hint">Upload a professional photo. JPG, PNG up to 5MB.</p>
+            <p *ngIf="formData.profilePhoto" class="file-name">{{ formData.profilePhoto.name }}</p>
+        </div>
+    </div>
+
+    <div class="summary-section">
+        <h3 class="summary-title">Profile Summary</h3>
+        <div class="summary-grid">
+            <div class="summary-item">
+                <span class="summary-label">Name:</span>
+                <span class="summary-value">{{ formData.firstName }} {{ formData.lastName }}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Service:</span>
+                <span class="summary-value">{{ formData.primaryService || 'Not selected' }}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Experience:</span>
+                <span class="summary-value">{{ formData.yearsExperience || 'Not selected' }}</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Rate:</span>
+                <span class="summary-value">\${{ formData.hourlyRate || 0 }}/hour</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Location:</span>
+                <span class="summary-value">{{ formData.location || 'Not specified' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <svg class="info-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+        </svg>
+        <div class="info-text">
+            <strong>Verification Process</strong>
+            <p>After submitting your profile, our team will review your information and verify your credentials. This process typically takes 1-2 business days. You'll receive an email once your profile is approved.</p>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button class="btn btn-secondary" (click)="onPrevious()">Previous</button>
+        <button 
+            class="btn btn-primary" 
+            [disabled]="!canSubmit"
+            [class.btn-disabled]="!canSubmit"
+            (click)="onSubmit()"
+        >
+            Submit Application
+        </button>
+    </div>
+</div>

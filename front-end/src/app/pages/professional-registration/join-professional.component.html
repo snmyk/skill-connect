@@ -1,0 +1,42 @@
+<div class="join-page">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Join as a Professional</h1>
+            <p class="page-subtitle">Create your profile and start connecting with customers</p>
+        </div>
+
+        <app-step-indicator
+            [currentStep]="currentStep"
+            [totalSteps]="3"
+            [stepLabel]="getStepLabel()"
+        ></app-step-indicator>
+
+        <app-step-one
+            *ngIf="currentStep === 1"
+            [formData]="formData"
+            [isValid]="isStepOneValid()"
+            (next)="nextStep()"
+        ></app-step-one>
+
+        <app-step-two
+            *ngIf="currentStep === 2"
+            [formData]="formData"
+            [isValid]="isStepTwoValid()"
+            (next)="nextStep()"
+            (previous)="previousStep()"
+        ></app-step-two>
+
+        <app-step-three
+            *ngIf="currentStep === 3"
+            [formData]="formData"
+            [isValid]="isStepThreeValid()"
+            [canSubmit]="isFormValid()"
+            (previous)="previousStep()"
+            (submit)="submitApplication()"
+        ></app-step-three>
+
+        <div class="help-section">
+            <p>Need help? <a href="/support" class="support-link">Contact our support team</a></p>
+        </div>
+    </div>
+</div>
