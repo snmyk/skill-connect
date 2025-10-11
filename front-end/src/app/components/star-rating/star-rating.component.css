@@ -1,0 +1,12 @@
+.star-rating {
+    display: flex;
+    gap: 0.125rem;
+}
+
+.star {
+    color: #fbbf24;
+}
+
+.star.empty {
+    color: #e5e7eb;
+}
