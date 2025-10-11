@@ -15,7 +15,11 @@
                     *ngIf="formData.profilePhoto; else defaultAvatar" 
                     class="preview-image"
                 >
-                    <span class="file-uploaded">✓ Photo uploaded</span>
+                    <img 
+                        [src]="imagePreviewUrl" 
+                        alt="Profile photo preview"
+                        class="uploaded-image"
+                    />
                 </div>
                 <ng-template #defaultAvatar>
                     <svg class="user-icon" width="48" height="48" viewBox="0 0 20 20" fill="currentColor">

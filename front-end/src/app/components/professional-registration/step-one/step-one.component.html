@@ -16,6 +16,7 @@
                 [class.input-error]="!formData.firstName.trim() && !isValid"
                 placeholder="Enter your first name"
                 [(ngModel)]="formData.firstName"
+                (ngModelChange)="onFormChange()"
                 required
             />
         </div>
@@ -28,6 +29,7 @@
                 [class.input-error]="!formData.lastName.trim() && !isValid"
                 placeholder="Enter your last name"
                 [(ngModel)]="formData.lastName"
+                (ngModelChange)="onFormChange()"
                 required
             />
         </div>
@@ -40,6 +42,7 @@
                 [class.input-error]="(!formData.email.trim() || !isValidEmail(formData.email)) && !isValid"
                 placeholder="Enter your email"
                 [(ngModel)]="formData.email"
+                (ngModelChange)="onFormChange()"
                 required
             />
         </div>
@@ -52,6 +55,7 @@
                 [class.input-error]="!formData.phone.trim() && !isValid"
                 placeholder="Enter your phone number"
                 [(ngModel)]="formData.phone"
+                (ngModelChange)="onFormChange()"
                 required
             />
         </div>
@@ -64,6 +68,7 @@
                 [class.input-error]="!formData.location.trim() && !isValid"
                 placeholder="Enter your city or area"
                 [(ngModel)]="formData.location"
+                (ngModelChange)="onFormChange()"
                 required
             />
         </div>

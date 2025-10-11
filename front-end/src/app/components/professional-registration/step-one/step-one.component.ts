@@ -1,7 +1,9 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfessionalApplication } from '../../../models/professional-application.model';
+import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { updateRegistrationDetails } from '../../../store/registration-store/registration.action';
 
 @Component({
     selector: 'app-step-one',
@@ -10,10 +12,29 @@ import { ProfessionalApplication } from '../../../models/professional-applicatio
     templateUrl: './step-one.component.html',
     styleUrls: ['./step-one.component.css'],
 })
-export class StepOneComponent {
+export class StepOneComponent implements OnInit, OnDestroy {
     @Input() formData!: ProfessionalApplication;
     @Input() isValid: boolean = false;
     @Output() next = new EventEmitter<void>();
+
+    private destroy$ = new Subject<void>();
+    private formChanged$ = new Subject<void>();
+
+    constructor() {}
+
+    ngOnInit() {
+        // Auto-save when form data changes (debounced to avoid excessive saves)
+       
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+
+    onFormChange() {
+        this.formChanged$.next();
+    }
 
     onNext() {
         if (this.isValid) {
