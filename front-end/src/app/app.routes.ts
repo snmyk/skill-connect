@@ -7,8 +7,9 @@ import { ViewProfessonalProfileComponent } from './pages/view-professonal-profil
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'  },
   { path: 'home', component: HomeComponent },
-  { path: 'browse', component: BrowseProfessionalsComponent },
+  { path: 'browse/professionals', component: BrowseProfessionalsComponent },
   { path: 'register', component: JoinProfessionalComponent },
   { path: 'reviews', component: ViewProfessonalProfileComponent },
+  { path: 'browse/professionals/:id', component: ViewProfessonalProfileComponent },
   // Additional routes can be added here
 ];

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ProfessionalDetails } from '../../../models/professional.model';
 
 @Component({
@@ -11,8 +12,10 @@ import { ProfessionalDetails } from '../../../models/professional.model';
 })
 export class TopRatedProfessionalCardComponent {
   @Input() professional!: ProfessionalDetails;
-  onViewProfile(): void {
-    console.log(`Viewing profile for ${this.professional.name}`);
+  constructor(private router: Router) {}
+  onViewProfile(professional: ProfessionalDetails): void {
+    console.log(`Viewing profile for ${professional.name}`);
     // Navigate to professional detail page
+    this.router.navigate(['/browse/professionals', professional.id]);
   }
 }

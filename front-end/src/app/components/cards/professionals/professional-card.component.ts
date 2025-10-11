@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ProfessionalDetails } from '../../../models/professional.model';
 
 @Component({
@@ -14,6 +15,8 @@ export class ProfessionalCardComponent {
     @Output() viewProfile = new EventEmitter<string>();
     @Output() contact = new EventEmitter<string>();
 
+    constructor(private router: Router) {}
+
     getAvailabilityClass(): string {
     return this.professional.availability === 'today' 
         ? 'available-today' 
@@ -27,7 +30,7 @@ export class ProfessionalCardComponent {
     }
 
     onViewProfile(): void {
-        this.viewProfile.emit(this.professional.id);
+        this.router.navigate(['/browse/professionals', this.professional.id]);
     }
 
     onContact(): void {
