@@ -136,9 +136,9 @@ export class BrowseProfessionalsComponent implements OnInit {
         if (this.searchQuery.trim()) {
             const query = this.searchQuery.toLowerCase();
             filtered = filtered.filter(p =>
-            p.name.toLowerCase().includes(query) ||
-            p.category.toLowerCase().includes(query) ||
-            p?.skills?.some(s => s.toLowerCase().includes(query))
+                p.name.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query) ||
+                p?.skills?.some(s => s.toLowerCase().includes(query))
             );
         }
 

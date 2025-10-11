@@ -1,0 +1,112 @@
+<div class="step-content">
+    <!-- Validation Error Summary -->
+    <div class="validation-summary" *ngIf="!isValid && getFieldErrors().length > 0">
+        <h4>Please complete the following required fields:</h4>
+        <ul>
+            <li *ngFor="let error of getFieldErrors()">{{ error }}</li>
+        </ul>
+    </div>
+
+    <div class="form-grid">
+        <div class="form-group">
+            <label class="label">Primary Service *</label>
+            <select 
+                class="select" 
+                [class.input-error]="!formData.primaryService.trim() && !isValid"
+                [(ngModel)]="formData.primaryService" 
+                required
+            >
+                <option value="">Select a service</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Electrical">Electrical</option>
+                <option value="Cleaning">Cleaning</option>
+                <option value="Handyman">Handyman</option>
+                <option value="Gardening">Gardening</option>
+                <option value="Carpentry">Carpentry</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="label">Years of Experience *</label>
+            <select 
+                class="select" 
+                [class.input-error]="!formData.yearsExperience.trim() && !isValid"
+                [(ngModel)]="formData.yearsExperience" 
+                required
+            >
+                <option value="">Select experience</option>
+                <option value="0-2">0-2 years</option>
+                <option value="3-5">3-5 years</option>
+                <option value="6-10">6-10 years</option>
+                <option value="10+">10+ years</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="label">Hourly Rate ($) *</label>
+            <input
+                type="number"
+                class="input"
+                [class.input-error]="(!formData.hourlyRate || formData.hourlyRate <= 0) && !isValid"
+                placeholder="1"
+                [(ngModel)]="formData.hourlyRate"
+                min="1"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label class="label">Availability *</label>
+            <select 
+                class="select" 
+                [class.input-error]="!formData.availability.trim() && !isValid"
+                [(ngModel)]="formData.availability" 
+                required
+            >
+                <option value="">Select availability</option>
+                <option value="Weekdays">Weekdays</option>
+                <option value="Weekends">Weekends</option>
+                <option value="Both">Both</option>
+                <option value="Flexible">Flexible</option>
+            </select>
+        </div>
+
+        <div class="form-group full-width">
+            <label class="label">Skills & Specializations *</label>
+            <input
+                type="text"
+                class="input"
+                [class.input-error]="!formData.skills.trim() && !isValid"
+                placeholder="e.g., Pipe Repair, Installation, Emergency Service (separate with commas)"
+                [(ngModel)]="formData.skills"
+                required
+            />
+        </div>
+
+        <div class="form-group full-width">
+            <label class="label">Professional Bio *</label>
+            <textarea
+                class="textarea"
+                [class.input-error]="!formData.bio.trim() && !isValid"
+                rows="5"
+                placeholder="Tell customers about your experience, approach, and what makes you unique..."
+                [(ngModel)]="formData.bio"
+                maxlength="500"
+                required
+            ></textarea>
+            <div class="character-count">{{ formData.bio.length || 0 }}/500 characters</div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button class="btn btn-secondary" (click)="onPrevious()">Previous</button>
+        <button 
+            class="btn btn-primary" 
+            [disabled]="!isValid"
+            [class.btn-disabled]="!isValid"
+            (click)="onNext()"
+        >
+            Next Step
+        </button>
+    </div>
+</div>

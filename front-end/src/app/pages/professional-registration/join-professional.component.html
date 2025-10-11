@@ -1,0 +1,53 @@
+<div class="join-page">
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">Join as a Professional</h1>
+            <p class="page-subtitle">Create your profile and start connecting with customers</p>
+        </div>
+
+        <app-step-indicator
+            [currentStep]="currentStep"
+            [totalSteps]="3"
+            [stepLabel]="getStepLabel()"
+        ></app-step-indicator>
+
+        <!-- Restored Data Notification -->
+        <div class="restored-notification" *ngIf="showRestoredMessage">
+            <div class="notification-content">
+                <svg class="notification-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span>Your previous form data has been restored!</span>
+                <button class="notification-dismiss" (click)="dismissRestoredMessage()">×</button>
+            </div>
+        </div>
+
+        <app-step-one
+            *ngIf="currentStep === 1"
+            [formData]="formData$"
+            [isValid]="isStepOneValid()"
+            (next)="nextStep()"
+        ></app-step-one>
+
+        <app-step-two
+            *ngIf="currentStep === 2"
+            [formData]="formData$"
+            [isValid]="isStepTwoValid()"
+            (next)="nextStep()"
+            (previous)="previousStep()"
+        ></app-step-two>
+
+        <app-step-three
+            *ngIf="currentStep === 3"
+            [formData]="formData$"
+            [isValid]="isStepThreeValid()"
+            [canSubmit]="isFormValid()"
+            (previous)="previousStep()"
+            (submit)="submitApplication()"
+        ></app-step-three>
+
+        <div class="help-section">
+            <p>Need help? <a href="/support" class="support-link">Contact our support team</a></p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="step-indicator">
+    <div class="steps">
+        <div *ngFor="let step of steps; let i = index" class="step-wrapper">
+            <div class="step" [class.active]="i + 1 <= currentStep" [class.completed]="i + 1 < currentStep">
+                <span class="step-number">{{ i + 1 }}</span>
+            </div>
+            <div *ngIf="i < steps.length - 1" class="connector" [class.active]="i + 1 < currentStep"></div>
+        </div>
+    </div>
+    <p class="step-label">{{ stepLabel }}</p>
+</div>

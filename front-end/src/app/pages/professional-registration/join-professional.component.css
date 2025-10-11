@@ -1,0 +1,114 @@
+.join-page {
+    min-height: 100vh;
+    background-color: #f9fafb;
+    padding: 3rem 1rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 0.5rem 0;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.help-section {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+}
+
+.help-section p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.support-link {
+    color: #14b8a6;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.support-link:hover {
+    text-decoration: underline;
+}
+
+/* Restored Data Notification */
+.restored-notification {
+    background-color: #d1fae5;
+    border: 1px solid #a7f3d0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.notification-icon {
+    color: #059669;
+    flex-shrink: 0;
+}
+
+.notification-content span {
+    color: #065f46;
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+.notification-dismiss {
+    background: none;
+    border: none;
+    color: #059669;
+    font-size: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.25rem;
+    line-height: 1;
+    border-radius: 0.25rem;
+}
+
+.notification-dismiss:hover {
+    background-color: #a7f3d0;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .join-page {
+        padding: 2rem 1rem;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+    }
+}

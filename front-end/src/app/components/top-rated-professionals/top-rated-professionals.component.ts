@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TopRatedProfessionalCardComponent } from './cards/top-rated-professional-card.component';
+import { TopRatedProfessionalCardComponent } from '../cards/top-rated-professional/top-rated-professional-card.component';
 import { ProfessionalDetails } from '../../models/professional.model';
 
 @Component({
