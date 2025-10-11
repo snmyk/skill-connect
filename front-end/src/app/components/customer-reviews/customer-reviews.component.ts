@@ -37,6 +37,22 @@ export class CustomerReviewsComponent {
       comment: 'Average service. Could be better.',
       date: "2024-06-15",
       serviceType: 'Air Duct Cleaning'
+    },
+    {
+      id: '4',
+      customerName: 'Tom Anderson',
+      rating: 5,
+      serviceType: 'Emergency Repair',
+      comment: 'Emergency electrical repair on Christmas day. Mike was professional and got our power restored quickly.',
+      date: '12/25/2023'
+    },
+    {
+      id: '5',
+      customerName: 'Rachel Green',
+      rating: 4,
+      serviceType: 'Wiring Installation',
+      comment: 'Good work on rewiring our basement. Mike was punctual and cleaned up well after the job.',
+      date: '12/18/2023'
     }
   ];
 }

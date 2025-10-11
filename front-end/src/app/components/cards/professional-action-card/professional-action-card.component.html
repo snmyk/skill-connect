@@ -1,0 +1,42 @@
+<div class="action-card">
+    <div class="price-section">
+        <div class="price-wrapper">
+            <span class="price">${{ profile.hourlyRate || 0 }}</span>
+            <span class="period">/hour</span>
+        </div>
+        <div class="rating-row" *ngIf="profile.rating && profile.reviewCount">
+            <app-star-rating [rating]="profile.rating"></app-star-rating>
+            <span class="rating-text">{{ profile.rating }} ({{ profile.reviewCount || 0 }})</span>
+        </div>
+        <div class="rating-row" *ngIf="!profile.rating || !profile.reviewCount">
+            <span class="rating-text no-rating">No reviews yet</span>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary" (click)="onContact()">
+            Contact Professional
+        </button>
+        <button class="btn btn-secondary" (click)="onRequestQuote()">
+            Request Quote
+        </button>
+        <button class="btn btn-tertiary" (click)="onSave()">
+            <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" *ngIf="!isSaved">
+                <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"/>
+            </svg>
+            <svg class="icon filled" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" *ngIf="isSaved">
+                <path fill-rule="evenodd" d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" clip-rule="evenodd"/>
+            </svg>
+            {{ isSaved ? 'Saved' : 'Save Professional' }}
+        </button>
+    </div>
+
+    <div class="badges" *ngIf="profile.badges && profile.badges.length > 0">
+        <div class="badge" *ngFor="let badge of profile.badges">
+            <svg class="badge-icon" width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>{{ badge }}</span>
+        </div>
+    </div>
+</div>

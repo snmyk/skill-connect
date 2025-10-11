@@ -8,10 +8,12 @@
         </div>
     </div>
 
-    <div class="reviews-list">
-        <app-review-card
+    <div class="reviews-list-wrapper">
+        <div class="reviews-list">
+            <app-review-card
             *ngFor="let review of reviews"
             [review]="review"
-        ></app-review-card>
+            ></app-review-card>
+        </div>
     </div>
 </div>

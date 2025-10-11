@@ -1,0 +1,18 @@
+<div class="profile-page">
+    <div class="container">
+        <div class="profile-grid">
+            <div class="main-content">
+                <app-professional-info-card [profile]="profile"></app-professional-info-card>
+                <app-customer-reviews></app-customer-reviews>
+            </div>
+            <div class="sidebar">
+                <app-professional-action-card
+                    [profile]="profile"
+                    (contact)="onContact()"
+                    (requestQuote)="onRequestQuote()"
+                    (save)="onSave()"
+                ></app-professional-action-card>
+            </div>
+        </div>
+    </div>
+</div>
