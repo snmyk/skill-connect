@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migration:generate": "node ./node_modules/typeorm/cli.js migration:generate ./migrations/NewMigration -d ./config/data-source.js --outputJs --esm",
+    "migration:run": "node ./node_modules/typeorm/cli.js migration:run -d ./config/data-source.js"
+  },
+  "keywords": [],
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "firebase-admin": "^13.4.0",
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "sequelize": "^6.37.7",
+    "typeorm": "^0.3.27"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
