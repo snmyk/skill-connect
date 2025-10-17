@@ -1,0 +1,73 @@
+<div class="info-card">
+    <div class="profile-header">
+        <img [src]="profile.avatarUrl" [alt]="profile.name" class="avatar" />
+        <div class="header-info">
+            <div class="name-wrapper">
+                <h1 class="name">{{ profile.name }}</h1>
+                <svg *ngIf="profile.isVerified" class="verified-icon" width="24" height="24" viewBox="0 0 20 20" fill="none">
+                    <circle cx="10" cy="10" r="10" fill="#14b8a6"/>
+                    <path d="M6 10l3 3 5-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <p class="category">{{ profile.category }}</p>
+            <div class="rating-row">
+                <app-star-rating [rating]="profile.rating"></app-star-rating>
+                <span class="rating-value">{{ profile.rating }}</span>
+                <span class="review-count">({{ profile.reviewCount }} reviews)</span>
+            </div>
+            <div class="meta-info">
+                <div class="meta-item">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>{{ profile.location }}</span>
+                </div>
+                <div class="meta-item">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Responds in {{ profile.responseTime }}</span>
+                </div>
+                <div class="meta-item">
+                    <svg class="icon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>{{ profile.jobsCompleted }} jobs completed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-section">
+        <h2 class="section-title">About</h2>
+        <p class="bio">{{ profile.bio }}</p>
+    </div>
+
+    <div class="services-section">
+        <h2 class="section-title">Services Offered</h2>
+        <div class="services-list">
+            <span
+                *ngFor="let service of profile.servicesOffered"
+                class="service-tag"
+                [class.primary]="service.isPrimary"
+            >
+                {{ service.name }}
+            </span>
+        </div>
+    </div>
+
+    <div class="details-grid">
+        <div class="detail-item">
+            <h3 class="detail-label">Hourly Rate</h3>
+            <p class="detail-value">
+                <span class="price">${{ profile.hourlyRate }}</span>
+                <span class="period">/hour</span>
+            </p>
+        </div>
+        <div class="detail-item">
+            <h3 class="detail-label">Experience</h3>
+            <p class="detail-value">{{ profile.yearsExperience }} years</p>
+        </div>
+    </div>
+</div>

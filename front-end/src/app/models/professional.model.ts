@@ -11,4 +11,14 @@ export interface ProfessionalDetails {
     isVerified: boolean;
     availability?: 'today' | 'tomorrow' | 'unavailable';
     skills?: string[];
+    responseTime?: string;
+    jobsCompleted?: number;
+    bio?: string;
+    servicesOffered?: Service[];
+    badges?: string[];
+}
+
+export interface Service {
+    name: string;
+    isPrimary: boolean;
 }

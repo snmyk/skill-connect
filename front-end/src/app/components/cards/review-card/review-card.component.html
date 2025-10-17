@@ -1,0 +1,13 @@
+<div class="review-card">
+    <div class="review-header">
+        <div class="reviewer-info">
+            <h4 class="reviewer-name">{{ review.customerName }}</h4>
+            <div class="rating-row">
+                <app-star-rating [rating]="review.rating"></app-star-rating>
+                <span class="service-type">{{ review.serviceType }}</span>
+            </div>
+        </div>
+        <span class="review-date">{{ review.date }}</span>
+    </div>
+    <p class="review-comment">{{ review.comment }}</p>
+</div>

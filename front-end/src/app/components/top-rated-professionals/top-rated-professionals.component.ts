@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { TopRatedProfessionalCardComponent } from '../cards/top-rated-professional/top-rated-professional-card.component';
 import { ProfessionalDetails } from '../../models/professional.model';
 
@@ -10,7 +11,10 @@ import { ProfessionalDetails } from '../../models/professional.model';
     templateUrl: './top-rated-professionals.component.html',
     styleUrls: ['./top-rated-professionals.component.css']
 })
+
 export class TopRatedProfessionalsComponent {
+    constructor(private router: Router) {}
+
     professionals: ProfessionalDetails[] = [
         {
             id: '1',
@@ -83,5 +87,6 @@ export class TopRatedProfessionalsComponent {
     onViewAll(): void {
         console.log('View all professionals clicked');
         // Navigate to professionals listing page
+        this.router.navigate(['/professionals']);
     }
 }
