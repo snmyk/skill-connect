@@ -1,15 +1,16 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build",
     "migration:generate": "node ./node_modules/typeorm/cli.js migration:generate ./migrations/NewMigration -d ./config/data-source.js --outputJs --esm",
     "migration:run": "node ./node_modules/typeorm/cli.js migration:run -d ./config/data-source.js"
   },
   "keywords": [],
-  "type": "module",
+  "module": "esnext",
   "author": "",
   "license": "ISC",
   "description": "",
@@ -24,6 +25,8 @@
     "typeorm": "^0.3.27"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
     "nodemon": "^3.1.10"
   }
 }
