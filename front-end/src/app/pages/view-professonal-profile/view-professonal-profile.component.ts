@@ -37,10 +37,6 @@ export class ViewProfessonalProfileComponent {
       badges: ['Background checked', 'Licensed & insured', '24/7 support']
     };
 
-    onContact() {
-      console.log('Contact professional');
-    }
-
     onRequestQuote() {
       console.log('Request quote');
     }
