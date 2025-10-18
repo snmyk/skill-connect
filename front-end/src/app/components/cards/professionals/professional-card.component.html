@@ -45,6 +45,13 @@
 
     <div class="actions">
         <button class="btn btn-secondary" (click)="onViewProfile()">View Profile</button>
-        <button class="btn btn-primary" (click)="onContact()">Contact</button>
+        <button class="btn btn-primary" (click)="openContactModal()">Request Quote</button>
     </div>
 </div>
+<app-contact-form
+    [isOpen]="isContactModalOpen"
+    [professionalName]="professionalName"
+    [availableServices]="services"
+    (close)="closeContactModal()"
+    (submit)="handleContactSubmit($event)"
+    ></app-contact-form>
