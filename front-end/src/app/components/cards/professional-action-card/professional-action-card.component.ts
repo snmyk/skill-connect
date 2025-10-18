@@ -15,7 +15,6 @@ import { ContactFormData } from '../../../models/contact-form.model';
 export class ProfessionalActionCardComponent {
   @Input() profile!: ProfessionalDetails;
   @Output() contact = new EventEmitter<void>();
-  @Output() requestQuote = new EventEmitter<void>();
   @Output() save = new EventEmitter<void>();
 
   isContactModalOpen = false;
@@ -39,9 +38,6 @@ export class ProfessionalActionCardComponent {
     this.isContactModalOpen = false;
   }
 
-  onRequestQuote() {
-    this.requestQuote.emit();
-  }
 
   onSave() {
     this.isSaved = !this.isSaved;
