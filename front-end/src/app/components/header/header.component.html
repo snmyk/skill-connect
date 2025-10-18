@@ -11,6 +11,13 @@
             <a href="/register" class="nav-link">Join as Professional</a>
         </nav>
         
-        <button class="sign-in-btn">Sign In</button>
+        <button class="sign-in-btn" (click)="openSignInModal()">Sign In</button>
     </div>
+    <app-sign-in-modal
+        [isOpen]="isSignInModalOpen"
+        (close)="closeSignInModal()"
+        (signIn)="handleSignIn($event)"
+        (forgotPassword)="handleForgotPassword()"
+        (signUp)="handleSignUp()"
+      ></app-sign-in-modal>
 </header>
