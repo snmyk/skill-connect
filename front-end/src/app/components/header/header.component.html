@@ -20,4 +20,10 @@
         (forgotPassword)="handleForgotPassword()"
         (signUp)="handleSignUp()"
       ></app-sign-in-modal>
+      <app-forgot-password-modal
+        [isOpen]="isForgotPasswordModalOpen"
+        (close)="closeForgotPasswordModal()"
+        (sendResetLink)="handleSendResetLink($event)"
+        (backToSignIn)="handleBackToSignIn()"
+      ></app-forgot-password-modal>
 </header>
