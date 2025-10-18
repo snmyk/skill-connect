@@ -11,5 +11,6 @@ export const routes: Routes = [
   { path: 'register', component: JoinProfessionalComponent },
   { path: 'reviews', component: ViewProfessonalProfileComponent },
   { path: 'browse/professionals/:id', component: ViewProfessonalProfileComponent },
+  { path: 'reset-password', component: HomeComponent }, // This route will handle a query param for token
   // Additional routes can be added here
 ];
