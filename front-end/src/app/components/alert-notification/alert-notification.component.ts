@@ -5,7 +5,6 @@ import { Observable, Subscription } from 'rxjs';
 import { AlertConfig } from '../../models/alert-config.model';
 import * as AlertActions from '../../store/alert-notification-store/alert-notification.action';
 import * as AlertSelectors from '../../store/alert-notification-store/alert-notification.selector';
-import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-alert-notification',

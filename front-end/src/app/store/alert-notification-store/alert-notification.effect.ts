@@ -24,68 +24,6 @@ export class AlertNotificationEffects {
         )
     );
 
-    // Effect to auto-dismiss alerts after a specified duration
-    autoDismissAlert$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(AlertActions.setAlertState),
-            switchMap((action) => {
-                console.log('Processing setAlertState action:', action.state);
-                // Only start timer if alert is displayed and has duration
-                if (action.state.isDisplayed && action.state.currentAlert?.duration) {
-                    const duration = action.state.currentAlert.duration;
-                    console.log('Starting auto-dismiss timer for', duration, 'ms');
-                    
-                    return timer(duration).pipe(
-                        map(() => {
-                            console.log('Auto-dismissing alert');
-                            return AlertActions.setAlertState({
-                                state: { 
-                                    isDisplayed: false, 
-                                    currentAlert: null 
-                                }
-                            });
-                        }),
-                        takeUntil(
-                            this.actions$.pipe(
-                                ofType(AlertActions.setAlertState, AlertActions.dismissAlert)
-                            )
-                        )
-                    );
-                }
-                return EMPTY; // Return EMPTY instead of empty array
-            })
-        )
-    );
-
-    // Effect to handle manual alert dismissal (when user clicks close button)
-    manualDismissAlert$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(AlertActions.dismissAlert),
-            map(() => {
-                console.log('Manually dismissing alert');
-                return AlertActions.setAlertState({
-                    state: { 
-                        isDisplayed: false, 
-                        currentAlert: null 
-                    }
-                });
-            })
-        )
-    );
-
-    // Effect to handle alert closed event (for cleanup and callbacks)
-    alertClosed$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(AlertActions.clearAlert),
-            tap(() => {
-                console.log('Alert has been closed');
-                // You can add additional cleanup logic here
-                // Or trigger other actions like navigation
-            })
-        ),
-        { dispatch: false } // This effect doesn't dispatch another action
-    );
-
     // Effect to handle success alerts with custom duration
     showSuccessAlert$ = createEffect(() =>
         this.actions$.pipe(
