@@ -1,6 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
 import { register, updateRegistrationDetails, saveProgress, completeRegistration } from "./registration.action";
-import { ProfessionalApplication } from "../../models/professional-application.model";
 import { RegistrationState, initialState } from "./registration.state";
 
 
