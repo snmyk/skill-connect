@@ -1,5 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { AlertConfig } from '../../models/alert-config.model';
+import * as AlertActions from '../../store/alert-notification-store/alert-notification.action';
+import * as AlertSelectors from '../../store/alert-notification-store/alert-notification.selector';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-alert-notification',
@@ -8,48 +14,60 @@ import { CommonModule } from '@angular/common';
   templateUrl: './alert-notification.component.html',
   styleUrl: './alert-notification.component.css'
 })
-export class AlertNotificationComponent {
-  @Input() isSuccess: boolean = true;
-  @Input() message: string = '';
-  @Input() duration: number = 3000; // 3 seconds default
-  @Output() closed = new EventEmitter<void>();
+export class AlertNotificationComponent implements OnInit, OnDestroy {
+  currentAlert$: Observable<AlertConfig | null>;
+  currentAlert: AlertConfig | null = null;
+  private alertSubscription?: Subscription;
 
-  isVisible: boolean = false;
-  private timeoutId: any;
+  constructor(private store: Store) {
+    this.currentAlert$ = this.store.select(AlertSelectors.selectCurrentAlert);
+  }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['message'] && this.message) {
-      this.show();
+  ngOnInit(): void {
+    // Subscribe to alert changes from store
+    this.alertSubscription = this.currentAlert$.subscribe(alert => {
+      this.currentAlert = alert;
+      console.log('Alert notification component received alert:', alert);
+      if (this.currentAlert){
+        setTimeout(() => {
+          this.onClose();
+        }, this.currentAlert.duration);
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Clean up subscription
+    if (this.alertSubscription) {
+      this.alertSubscription.unsubscribe();
     }
   }
 
-  show() {
-    this.isVisible = true;
-    this.clearTimeout();
-    
-    this.timeoutId = setTimeout(() => {
-      this.hide();
-    }, this.duration);
+  onClose(): void {
+    console.log('Alert closed');
+    // This dispatch triggers the manualDismissAlert$ effect
+    this.store.dispatch(AlertActions.dismissAlert());
   }
 
-  hide() {
-    this.isVisible = false;
-    this.clearTimeout();
-    this.closed.emit();
+  // Helper methods for template
+  get isVisible(): boolean {
+    return this.currentAlert !== null;
   }
 
-  onClose() {
-    this.hide();
+  get message(): string {
+    return this.currentAlert?.message || '';
   }
 
-  clearTimeout() {
-    if (this.timeoutId) {
-      clearTimeout(this.timeoutId);
-      this.timeoutId = null;
-    }
+  get isSuccess(): boolean {
+    return this.currentAlert?.isSuccess || false;
   }
 
-  ngOnDestroy() {
-    this.clearTimeout();
+  get alertType(): string {
+    if (!this.currentAlert) return '';
+    return this.currentAlert.isSuccess ? 'success' : 'error';
+  }
+
+  get alertDuration(): number {
+    return this.currentAlert?.duration || 3000;
   }
 }

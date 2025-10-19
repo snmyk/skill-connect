@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SearchComponent } from "../../components/search/search.component";
 import { ServiceCategoriesComponent } from "../../components/service-categories/service-categories.component";
@@ -9,8 +9,11 @@ import { NewPasswordModalComponent } from "../../components/new-password-modal/n
 import { PasswordData } from "../../models/new-password.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AlertNotificationComponent } from "../../components/alert-notification/alert-notification.component";
-import { AlertService } from "../../services/alert.service";
+import { Store } from "@ngrx/store";
+import { delay, Observable, Subscription } from "rxjs";
 import { AlertConfig } from "../../models/alert-config.model";
+import * as AlertActions from "../../store/alert-notification-store/alert-notification.action";
+import * as AlertSelectors from "../../store/alert-notification-store/alert-notification.selector";
 
 
 @Component({
@@ -20,15 +23,36 @@ import { AlertConfig } from "../../models/alert-config.model";
   standalone: true,
   imports: [CommonModule, SearchComponent, ServiceCategoriesComponent, TopRatedProfessionalsComponent, CtaSectionComponent, FooterComponent, NewPasswordModalComponent, AlertNotificationComponent]
 })
-export class HomeComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, private alertService: AlertService) {}
+export class HomeComponent implements OnInit, OnDestroy {
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private store: Store
+  ) {}
+
   isSetNewPasswordOpen = false;
   isSuccess = false;
   private resetToken: string = '';
-  currentAlert: AlertConfig | null = null;
-  private shouldNavigateAfterAlert = false; // Add this flag
+  currentAlert$!: Observable<AlertConfig | null>;
+  private shouldNavigateAfterAlert = false;
+  private alertSubscription?: Subscription;
 
   ngOnInit(): void {
+    // Subscribe to alert state from store
+    this.currentAlert$ = this.store.select(AlertSelectors.selectCurrentAlert);
+    
+    // Handle navigation after alert dismissal
+    this.alertSubscription = this.currentAlert$.subscribe(alert => {
+      console.log('Current alert updated:', alert);
+      // Check if we should navigate when alert is dismissed
+      if (alert === null && this.shouldNavigateAfterAlert) {
+        console.log('Alert dismissed, navigating to /browse/professionals');
+        this.shouldNavigateAfterAlert = false; // Reset flag
+        this.router.navigate(['/browse/professionals']);
+      }
+    });
+
+    // Handle password reset token
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
       if (token) {
@@ -39,18 +63,13 @@ export class HomeComponent implements OnInit {
         }
       }
     });
-    
-    // Update the existing subscription to handle navigation
-    this.alertService.alert$.subscribe(alert => {
-      this.currentAlert = alert;
-      console.log('Current alert updated:', alert);
-      // Check if we should navigate when alert is dismissed
-      if (alert === null && this.shouldNavigateAfterAlert) {
-        console.log('Alert dismissed, navigating to /browse/professionals');
-        this.shouldNavigateAfterAlert = false; // Reset flag
-        this.router.navigate(['/browse/professionals']);
-      }
-    });
+  }
+
+  ngOnDestroy(): void {
+    // Clean up subscription
+    if (this.alertSubscription) {
+      this.alertSubscription.unsubscribe();
+    }
   }
 
   //Backend token validation example
@@ -59,8 +78,13 @@ export class HomeComponent implements OnInit {
     return true; // Placeholder
   }
 
-  openSetNewPassword() { this.isSetNewPasswordOpen = true; }
-  closeSetNewPassword() { this.isSetNewPasswordOpen = false; }
+  openSetNewPassword() { 
+    this.isSetNewPasswordOpen = true; 
+  }
+
+  closeSetNewPassword() { 
+    this.isSetNewPasswordOpen = false; 
+  }
   
   async handleSetPassword(data: PasswordData) {
     try {
@@ -90,23 +114,48 @@ export class HomeComponent implements OnInit {
         console.log('New password:', newPassword);
         
         // Simulate 90% success rate
-        const success = Math.random() > 0.1;
+        const success = false; //Math.random() < 0.1;
         resolve(success);
       }, 1500); // Simulate 1.5 second API call
     });
   }
+
   private showSuccessAndNavigate() {
     this.shouldNavigateAfterAlert = true; // Set flag before showing alert
     this.showSuccess();
     console.log('Success alert shown, will navigate when dismissed');
+    // Add debugging to see if store state changes
+    this.currentAlert$.subscribe(alert => {
+      console.log('clear alert called');
+      console.log('Store alert state after success alert:', alert);
+    });
   }
 
   showSuccess() {
     console.log('Showing success alert');
-    this.alertService.showSuccess('Password updated successfully! Redirecting...');
+
+    this.store.dispatch(AlertActions.showSuccessAlert({
+      message: 'Password updated successfully! Redirecting...',
+      duration: 3000
+    }));
+    
+    // Debug logging
+    this.currentAlert$.subscribe(alert => {
+      console.log('Store alert state after dispatch:', alert);
+    });
   }
 
   showError() {
-    this.alertService.showError('Failed to save changes. Please try again.');
+    console.log('Showing error alert');
+    
+    this.store.dispatch(AlertActions.showErrorAlert({
+      message: 'Failed to update password. Please try again.',
+      duration: 5000
+    }));
+    
+    // Debug logging
+    this.currentAlert$.subscribe(alert => {
+      console.log('Store alert state after dispatch:', alert);
+    });
   }
 }

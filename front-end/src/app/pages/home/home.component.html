@@ -4,13 +4,7 @@
 <app-cta-section></app-cta-section>
 <app-footer></app-footer>
 
-<app-alert-notification
-    *ngIf="currentAlert"
-    [isSuccess]="currentAlert.isSuccess"
-    [message]="currentAlert.message"
-    [duration]="currentAlert.duration || 3000"
-    (closed)="currentAlert = null"
-></app-alert-notification>
+<app-alert-notification></app-alert-notification>
 
 <app-new-password-modal
     [isOpen]="isSetNewPasswordOpen"
