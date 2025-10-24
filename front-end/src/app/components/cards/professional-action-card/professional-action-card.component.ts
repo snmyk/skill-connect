@@ -1,16 +1,16 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StarRatingComponent } from '../../star-rating/star-rating.component';
-import { ProfessionalDetails } from '../../../models/professional.model';
+import { ProfessionalDetails } from '../../../models/professional/professional.model';
 import { ContactFormComponent } from '../../contact-form/contact-form.component';
-import { ContactFormData } from '../../../models/contact-form.model';
+import { ContactFormData } from '../../../models/professional/contact-form.model';
 
 @Component({
   selector: 'app-professional-action-card',
   standalone: true,
   imports: [CommonModule, StarRatingComponent, ContactFormComponent],
   templateUrl: './professional-action-card.component.html',
-  styleUrl: './professional-action-card.component.css'
+  styleUrl: './professional-action-card.component.css',
 })
 export class ProfessionalActionCardComponent {
   @Input() profile!: ProfessionalDetails;
@@ -25,7 +25,7 @@ export class ProfessionalActionCardComponent {
     'Move-in/Move-out Cleaning',
     'Office Cleaning',
     'Carpet Cleaning',
-    'Window Cleaning'
+    'Window Cleaning',
   ];
 
   isSaved = false;
@@ -37,7 +37,6 @@ export class ProfessionalActionCardComponent {
   closeContactModal() {
     this.isContactModalOpen = false;
   }
-
 
   onSave() {
     this.isSaved = !this.isSaved;

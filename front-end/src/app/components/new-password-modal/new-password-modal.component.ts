@@ -1,14 +1,14 @@
 import { Component, Input, Output, EventEmitter, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PasswordData } from '../../models/new-password.model';
+import { PasswordData } from '../../models/auth/new-password.model';
 
 @Component({
   selector: 'app-new-password-modal',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './new-password-modal.component.html',
-  styleUrl: './new-password-modal.component.css'
+  styleUrl: './new-password-modal.component.css',
 })
 export class NewPasswordModalComponent {
   @Input() isOpen = false;
@@ -71,7 +71,7 @@ export class NewPasswordModalComponent {
     setTimeout(() => {
       this.setPassword.emit({
         newPassword: this.newPassword,
-        confirmPassword: this.confirmPassword
+        confirmPassword: this.confirmPassword,
       });
       this.isLoading = false;
       this.onClose();
@@ -84,5 +84,4 @@ export class NewPasswordModalComponent {
     this.errorMessage = '';
     this.isLoading = false;
   }
-
 }

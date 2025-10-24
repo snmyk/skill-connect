@@ -1,14 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ContactFormData } from '../../models/contact-form.model';
+import { ContactFormData } from '../../models/professional/contact-form.model';
 
 @Component({
   selector: 'app-contact-form',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './contact-form.component.html',
-  styleUrl: './contact-form.component.css'
+  styleUrl: './contact-form.component.css',
 })
 export class ContactFormComponent {
   @Input() isOpen = false;
@@ -22,7 +22,7 @@ export class ContactFormComponent {
     email: '',
     mobileNumber: '',
     serviceRequested: '',
-    message: ''
+    message: '',
   };
 
   onClose() {
@@ -58,7 +58,7 @@ export class ContactFormComponent {
       email: '',
       mobileNumber: '',
       serviceRequested: '',
-      message: ''
+      message: '',
     };
   }
 }

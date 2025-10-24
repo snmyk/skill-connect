@@ -1,14 +1,19 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SignInCredentials } from '../../models/sign-in.model';
+import { SignInCredentials } from '../../models/auth/sign-in.model';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store';
+import * as AuthActions from '../../store/auth/auth.actions';
+import { selectAuthStateDetails } from '../../store/auth/auth.selectors';
 
 @Component({
   selector: 'app-sign-in-modal',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './sign-in-modal.component.html',
-  styleUrl: './sign-in-modal.component.css'
+  styleUrl: './sign-in-modal.component.css',
 })
 export class SignInModalComponent {
   @Input() isOpen = false;
@@ -19,8 +24,10 @@ export class SignInModalComponent {
   credentials: SignInCredentials = {
     email: '',
     password: '',
-    rememberMe: false
+    rememberMe: false,
   };
+
+  constructor(private router: Router, private store: Store<AppState>) {}
 
   onClose() {
     this.close.emit();
@@ -35,7 +42,12 @@ export class SignInModalComponent {
 
   onSubmit() {
     if (this.isFormValid()) {
-      this.signIn.emit({ ...this.credentials });
+      this.store.dispatch(
+        AuthActions.login({
+          email: this.credentials.email,
+          password: this.credentials.password,
+        })
+      );
       this.onClose();
     }
   }
@@ -53,7 +65,7 @@ export class SignInModalComponent {
     this.credentials = {
       email: '',
       password: '',
-      rememberMe: false
+      rememberMe: false,
     };
   }
 }
