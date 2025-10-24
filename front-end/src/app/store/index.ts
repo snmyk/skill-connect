@@ -4,18 +4,27 @@ import {
   ActionReducerMap,
   createFeatureSelector,
   createSelector,
-  MetaReducer
+  MetaReducer,
 } from '@ngrx/store';
-import { registrationReducer, RegistrationState } from './registration-store/registration.reducer';
-import { alertNotificationReducer, AlertNotificationState } from './alert-notification-store/alert-notification.reducer';
+import {
+  registrationReducer,
+  RegistrationState,
+} from './registration-store/registration.reducer';
+import {
+  alertNotificationReducer,
+  AlertNotificationState,
+} from './alert-notification-store/alert-notification.reducer';
+import { authReducer, AuthState } from './auth/auth.reducer';
 
 // Define the overall state interface
 export interface AppState {
   registration: RegistrationState;
   alertNotification: AlertNotificationState;
+  auth: AuthState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   registration: registrationReducer,
-  alertNotification: alertNotificationReducer
+  alertNotification: alertNotificationReducer,
+  auth: authReducer,
 };

@@ -4,4 +4,6 @@ export interface UserModel {
   lastName: string;
   email: string;
   userRole: string;
+  jwtToken: string;
+  refreshToken: string;
 }

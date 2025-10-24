@@ -1,7 +1,7 @@
-import { createSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { AuthState } from './auth.state';
 
-export const selectAuthState = (state: { auth: AuthState }) => state.auth;
+export const selectAuthState = createFeatureSelector<AuthState>('auth');
 
 export const selectIsAuthenticated = createSelector(
   selectAuthState,
@@ -15,7 +15,7 @@ export const selectUser = createSelector(
 
 export const selectAuthToken = createSelector(
   selectAuthState,
-  (state: AuthState) => state.token
+  (state: AuthState) => state.user?.jwtToken
 );
 
 export const selectAuthLoading = createSelector(
@@ -26,8 +26,9 @@ export const selectAuthLoading = createSelector(
 export const selectAuthStateDetails = createSelector(
   selectAuthState,
   (state: AuthState) => ({
-    isAuthenticated: state.isAuthenticated,
     user: state.user,
+    isAuthenticated: state.isAuthenticated,
     loading: state.loading,
+    error: state.error,
   })
 );
