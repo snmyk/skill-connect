@@ -14,6 +14,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AlertConfig } from '../../models/alert/alert-config.model';
 import * as AlertActions from '../../store/alert-notification-store/alert-notification.action';
 import * as AlertSelectors from '../../store/alert-notification-store/alert-notification.selector';
+import { logout } from '../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-home',
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log('Password reset token:', token);
         this.resetToken = token;
         if (this.ValidateToken(token)) {
+          this.store.dispatch(logout());
           this.openSetNewPassword();
         }
       }
