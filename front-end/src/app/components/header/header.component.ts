@@ -7,6 +7,7 @@ import {
   selectIsAuthenticated,
   selectTriggerAuthenticationModal,
 } from '../../store/auth/auth.selectors';
+import { initAuthFromCookie } from '../../store/auth/auth.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -35,6 +36,10 @@ export class HeaderComponent implements OnInit {
     this.authenticated$.subscribe((isAuthenticated) => {
       this.isAuthenticated = isAuthenticated;
       console.log('HeaderComponent: Auth state changed:', isAuthenticated);
+
+      if (!isAuthenticated) {
+        this.store.dispatch(initAuthFromCookie());
+      }
     });
 
     this.triggerAuthenticationModal$.subscribe((trigger) => {
