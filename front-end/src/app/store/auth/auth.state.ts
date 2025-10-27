@@ -1,5 +1,6 @@
 export interface AuthState {
   isAuthenticated: boolean;
+  triggerAuthenticationModal: boolean;
   loading: boolean;
   error: string | null;
   user: {
@@ -15,6 +16,7 @@ export interface AuthState {
 
 export const initialAuthState: AuthState = {
   isAuthenticated: false,
+  triggerAuthenticationModal: false,
   user: null,
   loading: false,
   error: null,

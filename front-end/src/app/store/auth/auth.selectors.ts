@@ -23,6 +23,11 @@ export const selectAuthLoading = createSelector(
   (state: AuthState) => state.loading
 );
 
+export const selectTriggerAuthenticationModal = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.triggerAuthenticationModal
+);
+
 export const selectAuthStateDetails = createSelector(
   selectAuthState,
   (state: AuthState) => ({

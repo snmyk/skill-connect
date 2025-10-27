@@ -28,3 +28,8 @@ export const initAuthFromCookieSuccess = createAction(
   '[Auth] Init Auth From Cookie Success',
   props<{ user: UserModel }>()
 );
+
+export const triggerAuthenticationModal = createAction(
+  '[Auth] Trigger Authentication Modal',
+  props<{ trigger: boolean }>()
+);

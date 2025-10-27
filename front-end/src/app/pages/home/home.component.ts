@@ -10,7 +10,7 @@ import { PasswordData } from '../../models/auth/new-password.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertNotificationComponent } from '../../components/alert-notification/alert-notification.component';
 import { Store } from '@ngrx/store';
-import { delay, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AlertConfig } from '../../models/alert/alert-config.model';
 import * as AlertActions from '../../store/alert-notification-store/alert-notification.action';
 import * as AlertSelectors from '../../store/alert-notification-store/alert-notification.selector';

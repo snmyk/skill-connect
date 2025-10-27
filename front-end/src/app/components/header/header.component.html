@@ -1,29 +1,36 @@
 <header class="header">
-    <div class="container">
-        <div class="logo">
-            <span class="logo-skill">Skill</span>
-            <span class="logo-connect">Connect</span>
-        </div>
-        
-        <nav class="nav">
-            <a href="/home" class="nav-link">Home</a>
-            <a href="/browse/professionals" class="nav-link">Browse Professionals</a>
-            <a href="/register" class="nav-link">Join as Professional</a>
-        </nav>
-        
-        <button class="sign-in-btn" (click)="openSignInModal()">Sign In</button>
+  <div class="container">
+    <div class="logo">
+      <span class="logo-skill">Skill</span>
+      <span class="logo-connect">Connect</span>
     </div>
-    <app-sign-in-modal
-        [isOpen]="isSignInModalOpen"
-        (close)="closeSignInModal()"
-        (signIn)="handleSignIn($event)"
-        (forgotPassword)="handleForgotPassword()"
-        (signUp)="handleSignUp()"
-      ></app-sign-in-modal>
-      <app-forgot-password-modal
-        [isOpen]="isForgotPasswordModalOpen"
-        (close)="closeForgotPasswordModal()"
-        (sendResetLink)="handleSendResetLink($event)"
-        (backToSignIn)="handleBackToSignIn()"
-      ></app-forgot-password-modal>
+
+    <nav class="nav">
+      <a href="/home" class="nav-link">Home</a>
+      <a href="/browse/professionals" class="nav-link">Browse Professionals</a>
+
+      <ng-container *ngIf="isAuthenticated; else notAuthenticated">
+        <a href="/account" class="nav-link">Account</a>
+      </ng-container>
+
+      <ng-template #notAuthenticated>
+        <a href="/register" class="nav-link">Join as Professional</a>
+      </ng-template>
+    </nav>
+
+    <button class="sign-in-btn" (click)="openSignInModal()">Sign In</button>
+  </div>
+  <app-sign-in-modal
+    [isOpen]="isSignInModalOpen"
+    (close)="closeSignInModal()"
+    (signIn)="handleSignIn($event)"
+    (forgotPassword)="handleForgotPassword()"
+    (signUp)="handleSignUp()"
+  ></app-sign-in-modal>
+  <app-forgot-password-modal
+    [isOpen]="isForgotPasswordModalOpen"
+    (close)="closeForgotPasswordModal()"
+    (sendResetLink)="handleSendResetLink($event)"
+    (backToSignIn)="handleBackToSignIn()"
+  ></app-forgot-password-modal>
 </header>

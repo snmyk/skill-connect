@@ -10,7 +10,7 @@ export const authReducer = createReducer(
   // Handle successful login
   on(AuthActions.loginSuccess, (state, { loginResponse }) => ({
     ...state,
-    loginResponse,
+    user: loginResponse,
     isAuthenticated: true,
     loading: false,
     error: null,
@@ -62,5 +62,10 @@ export const authReducer = createReducer(
   on(AuthActions.setLoading, (state, { loading }) => ({
     ...state,
     loading,
+  })),
+
+  on(AuthActions.triggerAuthenticationModal, (state, { trigger }) => ({
+    ...state,
+    triggerAuthenticationModal: trigger,
   }))
 );

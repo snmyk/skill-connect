@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignInModalComponent } from '../sign-in-modal/sign-in-modal.component';
 import { ForgotPasswordModalComponent } from '../forgot-password-modal/forgot-password-modal.component';
 import { SignInCredentials } from '../../models/auth/sign-in.model';
+import {
+  selectIsAuthenticated,
+  selectTriggerAuthenticationModal,
+} from '../../store/auth/auth.selectors';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +17,35 @@ import { SignInCredentials } from '../../models/auth/sign-in.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isSignInModalOpen = false;
   isForgotPasswordModalOpen = false;
+  isAuthenticated = false;
+  authenticated$: Observable<boolean>;
+  triggerAuthenticationModal$: Observable<boolean>;
+
+  constructor(private store: Store) {
+    this.authenticated$ = this.store.select(selectIsAuthenticated);
+    this.triggerAuthenticationModal$ = this.store.select(
+      selectTriggerAuthenticationModal
+    );
+  }
+  ngOnInit() {
+    // subscribe to authentication state
+    this.authenticated$.subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated;
+      console.log('HeaderComponent: Auth state changed:', isAuthenticated);
+    });
+
+    this.triggerAuthenticationModal$.subscribe((trigger) => {
+      if (trigger) {
+        console.log(
+          'HeaderComponent: Triggering sign-in modal due to auth requirement'
+        );
+        this.openSignInModal();
+      }
+    });
+  }
 
   openSignInModal() {
     this.isSignInModalOpen = true;

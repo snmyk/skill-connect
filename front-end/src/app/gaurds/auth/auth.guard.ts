@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, take } from 'rxjs';
 import { AppState } from '../../store';
+import { triggerAuthenticationModal } from '../../store/auth/auth.actions';
 
 export const authGuard = () => {
   const router = inject(Router);
@@ -21,7 +22,7 @@ export const authGuard = () => {
         }
 
         if (!token) {
-          router.navigateByUrl('/login');
+          store.dispatch(triggerAuthenticationModal({ trigger: true }));
           return false;
         }
         return true;
