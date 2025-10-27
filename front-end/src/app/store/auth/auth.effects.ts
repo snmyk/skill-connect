@@ -5,7 +5,6 @@ import * as AuthActions from './auth.actions';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { catchError, map, mergeMap, of, from, tap, switchMap } from 'rxjs';
-import { LoginResponse } from '../../models/auth/login-response.model';
 
 @Injectable()
 export class AuthEffects {
@@ -80,40 +79,16 @@ export class AuthEffects {
     )
   );
 
-  loginSuccessNavigate$ = createEffect(
-    () =>
-      this.actions$.pipe(
+  loginSuccess$ = createEffect(
+    () => {
+      console.log('loginSuccess$ effect is being created');
+      return this.actions$.pipe(
         ofType(AuthActions.loginSuccess),
         tap(({ loginResponse }) => {
-          console.log(
-            'Auth Effect: Login success navigation triggered for user',
-            loginResponse
-          );
-
-          // Navigate based on user role or default to browse/professionals
-          const navigationPath = this.determineNavigationPath(loginResponse);
-          console.log(`Auth Effect: Navigating to ${navigationPath}`);
-
-          this.router
-            .navigate([navigationPath])
-            .then((success) => {
-              if (success) {
-                console.log('Auth Effect: Navigation completed successfully');
-              } else {
-                console.warn('Auth Effect: Navigation failed');
-              }
-            })
-            .catch((error) => {
-              console.error('Auth Effect: Navigation error', error);
-            });
+          console.log('Auth Effect: Login successful!', loginResponse);
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
-
-  private determineNavigationPath(loginResponse: LoginResponse): string {
-    // Add logic here to determine navigation based on user role or other factors
-    // For now, defaulting to browse/professionals
-    return '/browse/professionals';
-  }
 }
