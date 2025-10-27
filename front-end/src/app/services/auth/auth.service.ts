@@ -56,4 +56,36 @@ export class AuthService {
       })
     );
   }
+
+  validatePasswordResetToken(token: string): Observable<boolean> {
+    // Simulate API delay and token validation
+    return of(null).pipe(
+      delay(1000), // Simulate 1 second API call
+      switchMap(() => {
+        // Simulate token validation logic
+        const isValid = token === 'valid-reset-token';
+        console.log(
+          `AuthService: Password reset token validation result for token "${token}":`,
+          isValid
+        );
+        return of(isValid);
+      })
+    );
+  }
+
+  passwordReset(newPassword: string): Observable<LoginResponse> {
+    //Get the user attempting the reset based on the token
+    //This will call the backend API to validate the token and get user details
+    const user = {
+      id: '1',
+      firstName: 'John',
+      lastName: 'Doe',
+      username: 'johndoe',
+      email: 'professional@skillconnect.com',
+      userRole: 'professional',
+    };
+
+    if (user != null) {
+    }
+  }
 }
