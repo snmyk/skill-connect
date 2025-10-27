@@ -7,6 +7,12 @@ export type { AuthState };
 export const authReducer = createReducer(
   initialAuthState,
 
+  on(AuthActions.login, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+
   // Handle successful login
   on(AuthActions.loginSuccess, (state, { loginResponse }) => ({
     ...state,

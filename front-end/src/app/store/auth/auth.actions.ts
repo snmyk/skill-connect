@@ -2,6 +2,11 @@ import { createAction, props } from '@ngrx/store';
 import { UserModel } from '../../models/user/user.model'; // Update import
 import { LoginResponse } from '../../models/auth/login-response.model';
 
+export const login = createAction(
+  '[Auth] Login',
+  props<{ email: string; password: string }>()
+);
+
 export const loginSuccess = createAction(
   '[Auth] Login Success',
   props<{ loginResponse: LoginResponse }>()

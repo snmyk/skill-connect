@@ -15,8 +15,6 @@ import { AppState } from '../../store';
 import * as AuthActions from '../../store/auth/auth.actions';
 import { selectAuthStateDetails } from '../../store/auth/auth.selectors';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth/auth.service';
-import { LoginResponse } from '../../models/auth/login-response.model';
 
 @Component({
   selector: 'app-sign-in-modal',
@@ -40,11 +38,7 @@ export class SignInModalComponent implements OnInit, OnDestroy {
   authState$: Observable<any>;
   private authSubscription?: Subscription;
 
-  constructor(
-    private router: Router,
-    private store: Store<AppState>,
-    private authService: AuthService
-  ) {
+  constructor(private router: Router, private store: Store<AppState>) {
     this.authState$ = this.store.select(selectAuthStateDetails);
   }
 
@@ -95,22 +89,12 @@ export class SignInModalComponent implements OnInit, OnDestroy {
       console.log('Form is valid, dispatching login action');
       console.log('Store object:', this.store); // Add this
 
-      this.authService
-        .login(this.credentials.email, this.credentials.password)
-        .subscribe({
-          next: (response: LoginResponse) => {
-            console.log('Login successful:', response);
-            this.store.dispatch(
-              AuthActions.loginSuccess({
-                loginResponse: response,
-              })
-            );
-          },
-          error: (error) => {
-            console.error('Login error:', error);
-            // You can show error message here
-          },
-        });
+      this.store.dispatch(
+        AuthActions.login({
+          email: this.credentials.email,
+          password: this.credentials.password,
+        })
+      );
 
       console.log('Login action dispatched successfully');
     } else {

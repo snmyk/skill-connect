@@ -13,6 +13,18 @@ export class AuthEffects {
   private cookieService = inject(CookieService);
   private router = inject(Router);
 
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.login),
+      mergeMap(({ email, password }) =>
+        this.authService.login(email, password).pipe(
+          map((loginResponse) => AuthActions.loginSuccess({ loginResponse })),
+          catchError((error) => of(AuthActions.loginFailure({ error })))
+        )
+      )
+    )
+  );
+
   saveTokenToCookie$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
