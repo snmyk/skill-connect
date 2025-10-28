@@ -63,6 +63,12 @@ export class AuthService {
     );
   }
 
+  sendPasswordResetEmail(email: string): Observable<boolean> {
+    console.log(`AuthService: Password reset email requested for ${email}`);
+    // Simulate API call
+    return of(true);
+  }
+
   validatePasswordResetToken(
     token: string
   ): Observable<TokenValidationResponse> {

@@ -91,5 +91,25 @@ export const authReducer = createReducer(
     ...state,
     loading: false,
     error,
+  })),
+
+  on(AuthActions.sendPasswordResetEmail, (state, { email }) => ({
+    ...state,
+    emailForPasswordReset: email,
+    loading: true,
+    error: null,
+  })),
+
+  on(AuthActions.sendPasswordResetEmailSuccess, (state) => ({
+    ...state,
+    emailForPasswordReset: null,
+    loading: false,
+    error: null,
+  })),
+
+  on(AuthActions.sendPasswordResetEmailFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
   }))
 );

@@ -165,4 +165,64 @@ export class AuthEffects {
       )
     )
   );
+
+  sendPasswordResetEmail$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.sendPasswordResetEmail),
+      mergeMap(({ email }) =>
+        this.authService.sendPasswordResetEmail(email).pipe(
+          map((success) => {
+            if (success) {
+              console.log(
+                'AuthService: Password reset email sent successfully'
+              );
+              return AuthActions.sendPasswordResetEmailSuccess();
+            } else {
+              console.log('AuthService: Failed to send password reset email');
+              return AuthActions.resetPasswordFailure({
+                error: 'Failed to send password reset email. Please try again.',
+              });
+            }
+          }),
+          catchError((error) => {
+            console.error(
+              'AuthService: Error sending password reset email:',
+              error
+            );
+            return of(
+              AuthActions.sendPasswordResetEmailFailure({
+                error:
+                  error.message ||
+                  'An unexpected error occurred during password reset.',
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  sendPasswordResetEmailSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.sendPasswordResetEmailSuccess),
+      map(() =>
+        showSuccessAlert({
+          message: 'Password reset link sent to your email.',
+          duration: 3000,
+        })
+      )
+    )
+  );
+
+  sendPasswordResetEmailFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.sendPasswordResetEmailFailure),
+      map(({ error }) =>
+        showErrorAlert({
+          message: `${error}`,
+          duration: 5000,
+        })
+      )
+    )
+  );
 }

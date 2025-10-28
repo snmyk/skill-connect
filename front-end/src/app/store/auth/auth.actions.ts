@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { UserModel } from '../../models/user/user.model'; // Update import
 import { LoginResponse } from '../../models/auth/login-response.model';
+import { send } from 'process';
 
 export const login = createAction(
   '[Auth] Login',
@@ -50,5 +51,19 @@ export const resetPasswordSuccess = createAction(
 
 export const resetPasswordFailure = createAction(
   '[Auth] Reset Password Failure',
+  props<{ error: string }>()
+);
+
+export const sendPasswordResetEmail = createAction(
+  '[Auth] Send Password Reset Email',
+  props<{ email: string }>()
+);
+
+export const sendPasswordResetEmailSuccess = createAction(
+  '[Auth] Send Password Reset Email Success'
+);
+
+export const sendPasswordResetEmailFailure = createAction(
+  '[Auth] Send Password Reset Email Failure',
   props<{ error: string }>()
 );
