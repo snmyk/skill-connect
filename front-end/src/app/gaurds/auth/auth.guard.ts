@@ -1,0 +1,31 @@
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { map, take } from 'rxjs';
+import { AppState } from '../../store';
+import { triggerAuthenticationModal } from '../../store/auth/auth.actions';
+
+export const authGuard = () => {
+  const router = inject(Router);
+  const store = inject(Store<AppState>);
+
+  return store
+    .select((state) => ({
+      token: state.auth.token,
+      loading: state.auth.loading,
+    }))
+    .pipe(
+      take(1),
+      map(({ token, loading }) => {
+        if (loading) {
+          return false;
+        }
+
+        if (!token) {
+          store.dispatch(triggerAuthenticationModal({ trigger: true }));
+          return false;
+        }
+        return true;
+      })
+    );
+};

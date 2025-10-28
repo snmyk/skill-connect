@@ -7,13 +7,15 @@ import { provideClientHydration } from '@angular/platform-browser';
 
 import { reducers } from './store';
 import { provideStore } from '@ngrx/store';
-
+import { AuthEffects } from './store/auth/auth.effects';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes), 
+    provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),
-    provideStore(reducers)
-  ]
+    provideStore(reducers),
+    provideEffects([AuthEffects]),
+  ],
 };

@@ -1,13 +1,16 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
+import { sendPasswordResetEmail } from '../../store/auth/auth.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-forgot-password-modal',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './forgot-password-modal.component.html',
-  styleUrl: './forgot-password-modal.component.css'
+  styleUrl: './forgot-password-modal.component.css',
 })
 export class ForgotPasswordModalComponent {
   @Input() isOpen = false;
@@ -18,6 +21,8 @@ export class ForgotPasswordModalComponent {
   email = '';
   errorMessage = '';
   isLoading = false;
+
+  constructor(private authService: AuthService, private store: Store) {}
 
   onClose() {
     this.close.emit();
@@ -51,7 +56,7 @@ export class ForgotPasswordModalComponent {
         this.errorMessage = 'Failed to send reset link. Please try again.';
         this.isLoading = false;
       } else {
-        this.sendResetLink.emit(this.email);
+        this.store.dispatch(sendPasswordResetEmail({ email: this.email }));
         this.isLoading = false;
         this.onClose();
       }

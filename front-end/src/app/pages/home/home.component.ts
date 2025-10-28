@@ -6,14 +6,15 @@ import { TopRatedProfessionalsComponent } from '../../components/top-rated-profe
 import { CtaSectionComponent } from '../../components/call-to-action/cta-section.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NewPasswordModalComponent } from '../../components/new-password-modal/new-password-modal.component';
-import { PasswordData } from '../../models/new-password.model';
+import { PasswordData } from '../../models/auth/new-password.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertNotificationComponent } from '../../components/alert-notification/alert-notification.component';
 import { Store } from '@ngrx/store';
-import { delay, Observable, Subscription } from 'rxjs';
-import { AlertConfig } from '../../models/alert-config.model';
+import { Observable, Subscription } from 'rxjs';
+import { AlertConfig } from '../../models/alert/alert-config.model';
 import * as AlertActions from '../../store/alert-notification-store/alert-notification.action';
 import * as AlertSelectors from '../../store/alert-notification-store/alert-notification.selector';
+import { logout } from '../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-home',
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log('Password reset token:', token);
         this.resetToken = token;
         if (this.ValidateToken(token)) {
+          this.store.dispatch(logout());
           this.openSetNewPassword();
         }
       }
