@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { LoginResponse } from '../../models/auth/login-response.model';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, switchMap } from 'rxjs/operators';
+import { UserModel } from '../../models/user/user.model';
+
+interface TokenValidationResponse {
+  isValid: boolean;
+  user: UserModel | null;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -57,35 +63,42 @@ export class AuthService {
     );
   }
 
-  validatePasswordResetToken(token: string): Observable<boolean> {
+  validatePasswordResetToken(
+    token: string
+  ): Observable<TokenValidationResponse> {
     // Simulate API delay and token validation
     return of(null).pipe(
       delay(1000), // Simulate 1 second API call
       switchMap(() => {
         // Simulate token validation logic
         const isValid = token === 'valid-reset-token';
+        const user: UserModel | null = {
+          id: '1',
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'professional@skillconnect.com',
+          userRole: 'professional',
+          username: 'johndoe',
+          jwtToken: null,
+          refreshToken: null,
+        };
+        const validationResponse: TokenValidationResponse = {
+          isValid,
+          user: isValid ? user : null,
+        };
         console.log(
           `AuthService: Password reset token validation result for token "${token}":`,
           isValid
         );
-        return of(isValid);
+        return of(validationResponse);
       })
     );
   }
 
-  passwordReset(newPassword: string): Observable<LoginResponse> {
-    //Get the user attempting the reset based on the token
-    //This will call the backend API to validate the token and get user details
-    const user = {
-      id: '1',
-      firstName: 'John',
-      lastName: 'Doe',
-      username: 'johndoe',
-      email: 'professional@skillconnect.com',
-      userRole: 'professional',
-    };
+  passwordReset(newPassword: string, email: string): Observable<boolean> {
+    //This will call the backend API to reset the password
+    console.log(`AuthService: Password reset called for user ${email}`);
 
-    if (user != null) {
-    }
+    return of(true);
   }
 }

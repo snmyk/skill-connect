@@ -5,6 +5,10 @@ import * as AuthActions from './auth.actions';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { catchError, map, mergeMap, of, from, tap, switchMap } from 'rxjs';
+import {
+  showSuccessAlert,
+  showErrorAlert,
+} from '../alert-notification-store/alert-notification.action';
 
 @Injectable()
 export class AuthEffects {
@@ -91,16 +95,74 @@ export class AuthEffects {
     )
   );
 
-  loginSuccess$ = createEffect(
-    () => {
-      console.log('loginSuccess$ effect is being created');
-      return this.actions$.pipe(
-        ofType(AuthActions.loginSuccess),
-        tap(({ loginResponse }) => {
-          console.log('Auth Effect: Login successful!', loginResponse);
+  loginSuccess$ = createEffect(() => {
+    console.log('loginSuccess$ effect is being created');
+    return this.actions$.pipe(
+      ofType(AuthActions.loginSuccess),
+      tap(({ loginResponse }) => {
+        console.log('Auth Effect: Login successful!', loginResponse);
+      }),
+      map(({ loginResponse }) =>
+        showSuccessAlert({
+          message: `Welcome back, ${loginResponse.firstName || 'User'}!`,
+          duration: 3000,
         })
-      );
-    },
-    { dispatch: false }
+      )
+    );
+  });
+
+  resetPassword$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.resetPassword),
+      mergeMap(({ newPassword, email }) =>
+        this.authService.passwordReset(newPassword, email).pipe(
+          map((success) => {
+            if (success) {
+              console.log('AuthService: Password reset successful');
+              return AuthActions.resetPasswordSuccess();
+            } else {
+              console.log('AuthService: Password reset failed');
+              return AuthActions.resetPasswordFailure({
+                error: 'Password reset failed. Please try again.',
+              });
+            }
+          }),
+          catchError((error) => {
+            console.error('AuthService: Password reset error:', error);
+            return of(
+              AuthActions.resetPasswordFailure({
+                error:
+                  error.message ||
+                  'An unexpected error occurred during password reset.',
+              })
+            );
+          })
+        )
+      )
+    )
+  );
+
+  resetPasswordSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.resetPasswordSuccess),
+      map(() =>
+        showSuccessAlert({
+          message: 'Your password has been reset successfully. Please sign in.',
+          duration: 3000,
+        })
+      )
+    )
+  );
+
+  resetPasswordFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.resetPasswordFailure),
+      map(({ error }) =>
+        showErrorAlert({
+          message: `${error}`,
+          duration: 5000,
+        })
+      )
+    )
   );
 }

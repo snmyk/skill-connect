@@ -73,5 +73,23 @@ export const authReducer = createReducer(
   on(AuthActions.triggerAuthenticationModal, (state, { trigger }) => ({
     ...state,
     triggerAuthenticationModal: trigger,
+  })),
+
+  on(AuthActions.resetPassword, (state) => ({
+    ...state,
+    loading: true,
+    error: null,
+  })),
+
+  on(AuthActions.resetPasswordSuccess, (state) => ({
+    ...state,
+    loading: false,
+    error: null,
+  })),
+
+  on(AuthActions.resetPasswordFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
   }))
 );

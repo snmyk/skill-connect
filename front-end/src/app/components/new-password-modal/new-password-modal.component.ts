@@ -1,7 +1,17 @@
-import { Component, Input, Output, EventEmitter, input } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  input,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PasswordData } from '../../models/auth/new-password.model';
+import { Store } from '@ngrx/store';
+import { resetPassword } from '../../store/auth/auth.actions';
+import { selectIsSuccessAlert } from '../../store/alert-notification-store/alert-notification.selector';
 
 @Component({
   selector: 'app-new-password-modal',
@@ -10,15 +20,26 @@ import { PasswordData } from '../../models/auth/new-password.model';
   templateUrl: './new-password-modal.component.html',
   styleUrl: './new-password-modal.component.css',
 })
-export class NewPasswordModalComponent {
+export class NewPasswordModalComponent implements OnInit {
   @Input() isOpen = false;
+  @Input() email: string | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() setPassword = new EventEmitter<PasswordData>();
+
+  ngOnInit() {
+    this.store.select(selectIsSuccessAlert).subscribe((isSuccess) => {
+      if (isSuccess) {
+        this.onClose();
+      }
+    });
+  }
 
   newPassword = '';
   confirmPassword = '';
   errorMessage = '';
   isLoading = false;
+
+  constructor(private store: Store) {}
 
   onClose() {
     this.close.emit();
@@ -68,14 +89,20 @@ export class NewPasswordModalComponent {
     this.isLoading = true;
 
     // Simulate API call
-    setTimeout(() => {
-      this.setPassword.emit({
+    this.store.dispatch(
+      resetPassword({
+        email: this.email || '',
         newPassword: this.newPassword,
-        confirmPassword: this.confirmPassword,
-      });
-      this.isLoading = false;
-      this.onClose();
-    }, 1000);
+      })
+    );
+
+    this.store.select(selectIsSuccessAlert).subscribe((isSuccess) => {
+      if (isSuccess) {
+        this.onClose();
+      } else {
+        this.isLoading = false;
+      }
+    });
   }
 
   resetForm() {

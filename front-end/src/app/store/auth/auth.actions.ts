@@ -31,10 +31,24 @@ export const initAuthFromCookie = createAction('[Auth] Init Auth From Cookie');
 
 export const initAuthFromCookieSuccess = createAction(
   '[Auth] Init Auth From Cookie Success',
-  props<{ user: UserModel }>()
+  props<{ user: LoginResponse }>()
 );
 
 export const triggerAuthenticationModal = createAction(
   '[Auth] Trigger Authentication Modal',
   props<{ trigger: boolean }>()
+);
+
+export const resetPassword = createAction(
+  '[Auth] Reset Password',
+  props<{ email: string; newPassword: string }>()
+);
+
+export const resetPasswordSuccess = createAction(
+  '[Auth] Reset Password Success'
+);
+
+export const resetPasswordFailure = createAction(
+  '[Auth] Reset Password Failure',
+  props<{ error: string }>()
 );
