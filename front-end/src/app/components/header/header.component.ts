@@ -7,7 +7,10 @@ import {
   selectIsAuthenticated,
   selectTriggerAuthenticationModal,
 } from '../../store/auth/auth.selectors';
-import { initAuthFromCookie } from '../../store/auth/auth.actions';
+import {
+  initAuthFromCookie,
+  triggerAuthenticationModal,
+} from '../../store/auth/auth.actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -43,6 +46,10 @@ export class HeaderComponent implements OnInit {
     });
 
     this.triggerAuthenticationModal$.subscribe((trigger) => {
+      console.log(
+        'HeaderComponent: triggerAuthenticationModal$ value received:',
+        trigger
+      );
       if (trigger) {
         console.log(
           'HeaderComponent: Triggering sign-in modal due to auth requirement'
@@ -53,7 +60,10 @@ export class HeaderComponent implements OnInit {
   }
 
   openSignInModal() {
+    console.log('Open sign-in modal');
     this.isSignInModalOpen = true;
+    // Reset the trigger to allow future modal openings
+    this.store.dispatch(triggerAuthenticationModal({ trigger: false }));
   }
 
   closeSignInModal() {

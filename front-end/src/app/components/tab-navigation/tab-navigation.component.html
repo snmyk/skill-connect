@@ -1,0 +1,28 @@
+<div class="tabs-container">
+  <div class="tabs">
+    <button
+      *ngFor="let tab of tabs"
+      type="button"
+      class="tab"
+      [class.active]="activeTabId === tab.id"
+      (click)="onTabClick(tab.id)"
+    >
+      <svg
+        class="tab-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <ng-container *ngFor="let path of tab.svgIconPaths">
+          <path
+            [attr.d]="path"
+            [attr.fill-rule]="tab.fillRule"
+            [attr.clip-rule]="tab.clipRule"
+          ></path>
+        </ng-container>
+      </svg>
+      {{ tab.name }}
+    </button>
+  </div>
+</div>
