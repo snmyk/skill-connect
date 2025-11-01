@@ -3,3 +3,11 @@
   [activeTabId]="activeTabId"
   (tabSelected)="onTabSelected($event)"
 ></app-tab-navigation>
+
+<div class="account-content">
+  <app-invoice
+    *ngIf="activeTabId === 'invoices'"
+    [invoices]="invoices"
+  ></app-invoice>
+  <!-- Additional tab components can be added here -->
+</div>
