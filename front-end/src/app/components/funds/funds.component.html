@@ -1,0 +1,111 @@
+<div class="tab-content">
+  <div class="funds-overview-header">
+    <h2 class="content-title">Funds Overview</h2>
+  </div>
+
+  <div class="funds-cards">
+    <div class="fund-card">
+      <div class="fund-card-header">
+        <span class="fund-label">Available Balance</span>
+        <svg
+          class="fund-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+          <path
+            fill-rule="evenodd"
+            d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <p class="fund-amount">\${{ getAvailableBalance() }}</p>
+      <p class="fund-description">Ready to withdraw</p>
+    </div>
+
+    <div class="fund-card">
+      <div class="fund-card-header">
+        <span class="fund-label">Pending Balance</span>
+        <svg
+          class="fund-icon pending"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <p class="fund-amount">\${{ getPendingBalance() }}</p>
+      <p class="fund-description">Awaiting payment</p>
+    </div>
+
+    <div class="fund-card">
+      <div class="fund-card-header">
+        <span class="fund-label">Total Earnings</span>
+        <svg
+          class="fund-icon success"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <p class="fund-amount">\${{ getTotalEarnings() }}</p>
+      <p class="fund-description">All time</p>
+    </div>
+  </div>
+
+  <div class="withdraw-section">
+    <div class="withdraw-header">
+      <h3 class="withdraw-title">Withdraw Funds</h3>
+      <button class="btn-primary" (click)="onWithdrawFunds()">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+          <path
+            fill-rule="evenodd"
+            d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        Withdraw
+      </button>
+    </div>
+
+    <div class="info-box">
+      <svg
+        class="info-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <div class="info-text">
+        <strong>Withdrawal Information</strong>
+        <p>
+          Withdrawals typically process within 2-3 business days. Minimum
+          withdrawal amount is $50.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="tab-content">
+  <div class="jobs-header">
+    <h2 class="content-title">Completed Jobs</h2>
+    <p class="jobs-count">Total: {{ completedJobs.length }} jobs</p>
+  </div>
+
+  <div class="jobs-list">
+    <div
+      class="job-card"
+      *ngFor="let job of completedJobs"
+      (click)="onJobClick(job)"
+    >
+      <div class="job-card-header">
+        <div class="job-info">
+          <h3 class="job-title">{{ job.service }}</h3>
+          <p class="job-client">Client: {{ job.client }}</p>
+          <p class="job-id">Job ID: {{ job.jobId }}</p>
+        </div>
+        <div class="job-amount-section">
+          <p class="job-amount">${{ job.earnings }}</p>
+          <p class="job-date">{{ job.completedDate }}</p>
+        </div>
+      </div>
+
+      <div class="job-rating" *ngIf="job.rating">
+        <div class="stars">
+          <svg
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            class="star"
+            [class.filled]="star <= job.rating"
+            width="16"
+            height="16"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M10 1l2.5 6.5L19 8l-5 4.5L15.5 19 10 15l-5.5 4L6 12.5 1 8l6.5-.5L10 1z"
+            />
+          </svg>
+          <span class="rating-value">{{ job.rating }}</span>
+        </div>
+        <p class="job-review" *ngIf="job.review">{{ job.review }}</p>
+      </div>
+    </div>
+  </div>
+</div>

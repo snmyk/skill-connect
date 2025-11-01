@@ -5,9 +5,16 @@
 ></app-tab-navigation>
 
 <div class="account-content">
+  <!-- Invoice component -->
   <app-invoice
     *ngIf="activeTabId === 'invoices'"
     [invoices]="invoices"
   ></app-invoice>
-  <!-- Additional tab components can be added here -->
+  <!-- Completed Jobs component -->
+  <app-completed-jobs
+    *ngIf="activeTabId === 'completed-jobs'"
+    [completedJobs]="completedJobs"
+  ></app-completed-jobs>
+  <!-- funds component -->
+  <app-funds *ngIf="activeTabId === 'fund'" [funds]="funds"></app-funds>
 </div>

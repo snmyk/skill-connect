@@ -1,0 +1,32 @@
+.job-card-header {
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.job-amount-section {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.jobs-header {
+  padding: 1rem;
+}
+
+.funds-overview-header {
+  padding: 1rem;
+}
+
+.job-card {
+  padding: 1rem;
+}
+
+.fund-card {
+  padding: 1rem;
+}
+
+.withdraw-section {
+  padding: 1rem;
+}

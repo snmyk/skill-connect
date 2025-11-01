@@ -1,14 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tab } from '../../models/tab-navigation/tab.model';
 import { Invoice } from '../../models/account/invoice.model';
+import { Job } from '../../models/account/job.model';
+import { Fund } from '../../models/account/fund.model';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
+import { CompletedJobsComponent } from '../completed-jobs/completed-jobs.component';
+import { FundsComponent } from '../funds/funds.component';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [CommonModule, TabNavigationComponent, InvoiceComponent],
+  imports: [
+    CommonModule,
+    TabNavigationComponent,
+    InvoiceComponent,
+    CompletedJobsComponent,
+    FundsComponent,
+  ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css',
 })
@@ -64,6 +74,90 @@ export class AccountComponent {
       amount: 800,
       status: 'Paid',
       date: '2024-06-15',
+    },
+  ];
+
+  completedJobs: Job[] = [
+    {
+      id: '1',
+      jobId: 'JOB-340',
+      client: 'John Smith',
+      service: 'Emergency Repair',
+      completedDate: '1/15/2024',
+      earnings: 340,
+      rating: 5,
+      review: 'Excellent job fixing our kitchen sink leak. Very professional!',
+    },
+    {
+      id: '2',
+      jobId: 'JOB-339',
+      client: 'Maria Garcia',
+      service: 'Bathroom Renovation',
+      completedDate: '1/10/2024',
+      earnings: 2850,
+      rating: 5,
+      review: 'Outstanding work on our bathroom renovation.',
+    },
+    {
+      id: '3',
+      jobId: 'JOB-338',
+      client: 'David Wilson',
+      service: 'Water Heater Service',
+      completedDate: '1/5/2024',
+      earnings: 425,
+      rating: 4.5,
+      review: 'Great service. Very knowledgeable and efficient.',
+    },
+    {
+      id: '4',
+      jobId: 'JOB-337',
+      client: 'Lisa Brown',
+      service: 'Pipe Installation',
+      completedDate: '12/28/2023',
+      earnings: 680,
+      rating: 5,
+      review: 'Professional work. Highly recommend!',
+    },
+    {
+      id: '5',
+      jobId: 'JOB-336',
+      client: 'Robert Taylor',
+      service: 'Emergency Repair',
+      completedDate: '12/20/2023',
+      earnings: 510,
+      rating: 4.5,
+      review: 'Quick response and quality work.',
+    },
+  ];
+
+  funds: Fund[] = [
+    {
+      id: '1',
+      description: 'Payment from John Smith',
+      amount: 340,
+      date: '1/15/2024',
+      type: 'Deposit',
+    },
+    {
+      id: '2',
+      description: 'Payment from Maria Garcia',
+      amount: 2850,
+      date: '1/10/2024',
+      type: 'Deposit',
+    },
+    {
+      id: '3',
+      description: 'Withdrawal to Bank Account',
+      amount: 1500,
+      date: '1/5/2024',
+      type: 'Withdrawal',
+    },
+    {
+      id: '4',
+      description: 'Payment from Lisa Brown',
+      amount: 680,
+      date: '12/28/2023',
+      type: 'Deposit',
     },
   ];
 
