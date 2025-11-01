@@ -14,10 +14,7 @@
     </div>
 
     <div class="actions">
-        <button class="btn btn-primary" (click)="onContact()">
-            Contact Professional
-        </button>
-        <button class="btn btn-secondary" (click)="onRequestQuote()">
+        <button class="btn btn-primary" (click)="openContactModal()">
             Request Quote
         </button>
         <button class="btn btn-tertiary" (click)="onSave()">
@@ -39,4 +36,12 @@
             <span>{{ badge }}</span>
         </div>
     </div>
+
+    <app-contact-form
+        [isOpen]="isContactModalOpen"
+        [professionalName]="professionalName"
+        [availableServices]="services"
+        (close)="closeContactModal()"
+        (submit)="handleContactSubmit($event)"
+      ></app-contact-form>
 </div>

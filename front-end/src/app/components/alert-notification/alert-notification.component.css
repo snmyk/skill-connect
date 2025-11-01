@@ -1,0 +1,148 @@
+.alert-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    pointer-events: all;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+    opacity: 0;
+    }
+    to {
+    opacity: 1;
+    }
+}
+
+.alert-container {
+    position: fixed;
+    top: 5rem;
+    right: 1.5rem;
+    width: 400px;
+    max-width: calc(100vw - 3rem);
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: slideIn 0.3s ease-out;
+    pointer-events: all;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@keyframes slideIn {
+    from {
+    transform: translateX(120%);
+    opacity: 0;
+    }
+    to {
+    transform: translateX(0);
+    opacity: 1;
+    }
+}
+
+.alert-container.success {
+    background-color: #d1fae5;
+    border: 1px solid #6ee7b7;
+}
+
+.alert-container.error {
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+}
+
+.alert-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 0.2rem 1rem 1rem;
+}
+
+.alert-icon {
+    flex-shrink: 0;
+}
+
+.success-icon {
+    color: #059669;
+}
+
+.error-icon {
+    color: #dc2626;
+}
+
+.alert-message {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    min-width: 0;
+    word-wrap: break-word;
+}
+
+.alert-container.success .alert-message {
+    color: #065f46;
+}
+
+.alert-container.error .alert-message {
+    color: #991b1b;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding-right: 0.2rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+    flex: 1;
+    align-self: flex-end;
+}
+
+.alert-container.success .close-button {
+    color: #059669;
+}
+
+.alert-container.error .close-button {
+    color: #dc2626;
+}
+
+.close-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    height: 4px;
+    animation-name: shrink;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+.alert-container.success .progress-bar {
+    background-color: #059669;
+}
+
+.alert-container.error .progress-bar {
+    background-color: #dc2626;
+}
+
+@keyframes shrink {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+@media (max-width: 640px) {
+    .alert-container {
+        top: 4.5rem;
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+        max-width: none;
+    }
+}

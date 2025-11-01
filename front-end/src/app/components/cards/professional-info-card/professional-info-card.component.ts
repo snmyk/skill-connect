@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfessionalDetails } from '../../../models/professional.model';
+import { ProfessionalDetails } from '../../../models/professional/professional.model';
 import { StarRatingComponent } from '../../star-rating/star-rating.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { StarRatingComponent } from '../../star-rating/star-rating.component';
   standalone: true,
   imports: [CommonModule, StarRatingComponent],
   templateUrl: './professional-info-card.component.html',
-  styleUrls: ['./professional-info-card.component.css']
+  styleUrls: ['./professional-info-card.component.css'],
 })
 export class ProfessionalInfoCardComponent {
   @Input() profile!: ProfessionalDetails;
@@ -17,7 +17,9 @@ export class ProfessionalInfoCardComponent {
     event.target.src = 'assets/images/default-avatar.png';
   }
 
-  getAvailabilityText(availability: 'today' | 'tomorrow' | 'unavailable'): string {
+  getAvailabilityText(
+    availability: 'today' | 'tomorrow' | 'unavailable'
+  ): string {
     switch (availability) {
       case 'today':
         return 'Available today';

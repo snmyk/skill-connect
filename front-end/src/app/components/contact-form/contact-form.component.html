@@ -1,0 +1,118 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onOverlayClick($event)">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <div>
+                <h2 class="modal-title">Contact Professional</h2>
+                <p class="modal-subtitle">Get in touch with {{ professionalName }}</p>
+            </div>
+            <button class="close-button" (click)="onClose()">
+                <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </div>
+
+        <form class="modal-body" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+            <div class="form-group">
+                <label class="label">Full Name *</label>
+                <input
+                    type="text"
+                    class="input"
+                    [class.error]="fullName.invalid && (fullName.dirty || fullName.touched)"
+                    placeholder="Enter your full name"
+                    [(ngModel)]="formData.fullName"
+                    name="fullName"
+                    #fullName="ngModel"
+                    required
+                    minlength="2"
+                />
+                <div class="error-message" *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)">
+                    <span *ngIf="fullName.errors?.['required']">Full name is required</span>
+                    <span *ngIf="fullName.errors?.['minlength']">Full name must be at least 2 characters</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="label">Email Address *</label>
+                <input
+                    type="email"
+                    class="input"
+                    [class.error]="email.invalid && (email.dirty || email.touched)"
+                    placeholder="Enter your email address"
+                    [(ngModel)]="formData.email"
+                    name="email"
+                    #email="ngModel"
+                    required
+                    email
+                />
+                <div class="error-message" *ngIf="email.invalid && (email.dirty || email.touched)">
+                    <span *ngIf="email.errors?.['required']">Email address is required</span>
+                    <span *ngIf="email.errors?.['email']">Please enter a valid email address</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="label">Mobile Number *</label>
+                <input
+                    type="tel"
+                    class="input"
+                    [class.error]="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched)"
+                    placeholder="Enter your mobile number"
+                    [(ngModel)]="formData.mobileNumber"
+                    name="mobileNumber"
+                    #mobileNumber="ngModel"
+                    required
+                    pattern="^[\+]?[0-9]{10,15}$"
+                />
+                <div class="error-message" *ngIf="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched)">
+                    <span *ngIf="mobileNumber.errors?.['required']">Mobile number is required</span>
+                    <span *ngIf="mobileNumber.errors?.['pattern']">Please enter a valid mobile number (10-15 digits)</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="label">Service Requested *</label>
+                <select
+                    class="select"
+                    [class.error]="serviceRequested.invalid && (serviceRequested.dirty || serviceRequested.touched)"
+                    [(ngModel)]="formData.serviceRequested"
+                    name="serviceRequested"
+                    #serviceRequested="ngModel"
+                    required
+                >
+                    <option value="">Select a service</option>
+                    <option *ngFor="let service of availableServices" [value]="service">
+                    {{ service }}
+                    </option>
+                </select>
+                <div class="error-message" *ngIf="serviceRequested.invalid && (serviceRequested.dirty || serviceRequested.touched)">
+                    <span *ngIf="serviceRequested.errors?.['required']">Please select a service</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="label">Additional Message (Optional)</label>
+                <textarea
+                    class="textarea"
+                    rows="4"
+                    placeholder="Tell the professional about your project..."
+                    [(ngModel)]="formData.message"
+                    name="message"
+                ></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="onClose()">
+                    Cancel
+                </button>
+                <button 
+                    type="submit" 
+                    class="btn btn-primary"
+                    [disabled]="contactForm.invalid"
+                >
+                    Send Request
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

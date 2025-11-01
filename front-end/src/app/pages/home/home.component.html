@@ -3,3 +3,11 @@
 <app-top-rated-professionals></app-top-rated-professionals>
 <app-cta-section></app-cta-section>
 <app-footer></app-footer>
+
+<app-alert-notification></app-alert-notification>
+
+<app-new-password-modal
+    [isOpen]="isSetNewPasswordOpen"
+    (close)="closeSetNewPassword()"
+    (setPassword)="handleSetPassword($event)"
+></app-new-password-modal>
