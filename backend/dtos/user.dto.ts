@@ -1,0 +1,12 @@
+export interface CreateUserDto {
+  email: string;
+  firebase_id: string;
+}
+
+export interface UpdateUserDto {
+  phone?: string;
+  display_name?: string;
+  date_of_birth?: Date;
+  gender?: string;
+  location?: object; // or GeoJSON type if you’re using PostGIS
+}
