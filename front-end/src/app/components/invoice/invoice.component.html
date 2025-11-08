@@ -42,3 +42,9 @@
     </table>
   </div>
 </div>
+
+<app-create-invoice
+  [isOpen]="isCreateInvoiceModalOpen"
+  (close)="closeCreateInvoiceModal()"
+  (createInvoice)="handleCreateInvoice($event)"
+></app-create-invoice>
