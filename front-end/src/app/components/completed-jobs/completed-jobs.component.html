@@ -6,7 +6,7 @@
     </div>
 
     <div class="completed-jobs-list">
-      <div *ngFor="let job of completedJobs" (click)="onJobClick(job)">
+      <div *ngFor="let job of completedJobs">
         <app-completed-job-card
           title="{{ job.service }}"
           client="{{ job.client }}"

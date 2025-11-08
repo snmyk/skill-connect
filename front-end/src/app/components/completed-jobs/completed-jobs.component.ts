@@ -12,9 +12,4 @@ import { Job } from '../../models/account/job.model';
 })
 export class CompletedJobsComponent {
   @Input() completedJobs: Job[] = [];
-
-  onJobClick(job: Job) {
-    console.log('Job clicked:', job);
-    // Navigate to job detail
-  }
 }
