@@ -1,0 +1,34 @@
+<div>
+  <div class="header-row">
+    <div>
+      <h2 class="job-title">{{ title }}</h2>
+      <p class="client">Client: {{ client }}</p>
+      <p class="job-id">Job ID: {{ jobId }}</p>
+    </div>
+    <div class="amount-date">
+      <p class="amount">${{ amount }}</p>
+      <p class="date">{{ date }}</p>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="rating-row">
+    <ng-container *ngFor="let star of [].constructor(5); let i = index">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="star"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        [ngClass]="{ 'star-inactive': i >= (rating ?? 0) }"
+      >
+        <path
+          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.385 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.385-2.46a1 1 0 00-1.176 0l-3.385 2.46c-.784.57-1.838-.196-1.539-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.048 9.393c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.285-3.966z"
+        />
+      </svg>
+    </ng-container>
+    <span class="rating-value">{{ rating?.toFixed(1) }}</span>
+  </div>
+
+  <p class="review">{{ review }}</p>
+</div>

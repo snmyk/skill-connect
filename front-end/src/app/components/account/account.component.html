@@ -1,0 +1,23 @@
+<app-tab-navigation
+  [tabs]="tabs"
+  [activeTabId]="activeTabId"
+  (tabSelected)="onTabSelected($event)"
+></app-tab-navigation>
+
+<div class="account-content">
+  <!-- Invoice component -->
+  <app-invoice
+    *ngIf="activeTabId === 'invoices'"
+    [invoices]="invoices"
+  ></app-invoice>
+  <!-- Completed Jobs component -->
+  <app-completed-jobs
+    *ngIf="activeTabId === 'completed-jobs'"
+    [completedJobs]="completedJobs"
+  ></app-completed-jobs>
+  <!-- Earnings Dashboard component -->
+  <app-earnings-dashboard
+    *ngIf="activeTabId === 'earnings-dashboard'"
+    [earnings]="earnings"
+  ></app-earnings-dashboard>
+</div>

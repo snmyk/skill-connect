@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { BrowseProfessionalsComponent } from './pages/browse-professionals/browse-professionals.component';
 import { JoinProfessionalComponent } from './pages/professional-registration/join-professional.component';
 import { ViewProfessonalProfileComponent } from './pages/view-professonal-profile/view-professonal-profile.component';
-import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
+import { AccountDashboardComponent } from './pages/account-dashboard/account-dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -31,8 +31,7 @@ export const routes: Routes = [
   }, // This route will handle a query param for token
   {
     path: 'account',
-    component: HomeComponent, // Placeholder for AccountComponent
-    canActivate: [authGuard],
+    component: AccountDashboardComponent,
   },
   // Additional routes can be added here
 ];
