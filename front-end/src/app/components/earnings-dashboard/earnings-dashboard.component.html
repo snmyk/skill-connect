@@ -1,0 +1,119 @@
+<div class="earnings-dashboard">
+  <!-- Top cards -->
+  <div class="cards-grid">
+    <!-- Available Balance -->
+    <div class="balance-card">
+      <div class="card-header">
+        <p class="card-label">Available Balance</p>
+        <svg
+          class="icon icon-emerald"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+          <path
+            fill-rule="evenodd"
+            d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <h2 class="balance-amount">${{ earnings.availableBalance | number }}</h2>
+      <p class="balance-description">Ready to withdraw</p>
+    </div>
+
+    <!-- Pending Balance -->
+    <div class="balance-card">
+      <div class="card-header">
+        <p class="card-label">Pending Balance</p>
+        <svg
+          class="icon icon-amber"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </div>
+      <h2 class="balance-amount">${{ earnings.pendingBalance | number }}</h2>
+      <p class="balance-description">Awaiting payment</p>
+    </div>
+
+    <!-- Total Earnings -->
+    <div class="balance-card">
+      <div class="card-header">
+        <p class="card-label">Total Earnings</p>
+        <svg
+          class="icon icon-green"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <h2 class="balance-amount">${{ earnings.totalEarnings | number }}</h2>
+      <p class="balance-description">All time</p>
+    </div>
+  </div>
+
+  <!-- Withdraw Funds Section -->
+  <div class="withdraw-section">
+    <div class="withdraw-header">
+      <h3 class="withdraw-title">Withdraw Funds</h3>
+      <button class="withdraw-button">
+        <svg
+          class="button-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v8m0 0l-3-3m3 3l3-3m6 3a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        Withdraw
+      </button>
+    </div>
+
+    <!-- Info Box -->
+    <div class="info-box">
+      <svg
+        class="info-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"
+        />
+      </svg>
+      <p class="info-text">
+        <span class="info-emphasis">Withdrawal Information:</span>
+        Withdrawals typically process within 2–3 business days. Minimum
+        withdrawal amount is $50.
+      </p>
+    </div>
+  </div>
+</div>

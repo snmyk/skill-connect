@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Tab } from '../../models/tab-navigation/tab.model';
 import { Invoice } from '../../models/account/invoice.model';
 import { Job } from '../../models/account/job.model';
-import { Fund } from '../../models/account/fund.model';
+import { Earning } from '../../models/account/earnings.model';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { CompletedJobsComponent } from '../completed-jobs/completed-jobs.component';
+import { EarningsDashboardComponent } from '../earnings-dashboard/earnings-dashboard.component';
 
 @Component({
   selector: 'app-account',
@@ -16,6 +17,7 @@ import { CompletedJobsComponent } from '../completed-jobs/completed-jobs.compone
     TabNavigationComponent,
     InvoiceComponent,
     CompletedJobsComponent,
+    EarningsDashboardComponent,
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css',
@@ -42,9 +44,9 @@ export class AccountComponent {
       clipRule: 'evenodd',
     },
     {
-      id: 'fund',
-      name: 'Fund',
-      route: '/account/fund',
+      id: 'earnings-dashboard',
+      name: 'Earnings',
+      route: '/account/earnings-dashboard',
       svgIconPaths: [
         'M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z',
         'M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z',
@@ -128,36 +130,12 @@ export class AccountComponent {
     },
   ];
 
-  funds: Fund[] = [
-    {
-      id: '1',
-      description: 'Payment from John Smith',
-      amount: 340,
-      date: '1/15/2024',
-      type: 'Deposit',
-    },
-    {
-      id: '2',
-      description: 'Payment from Maria Garcia',
-      amount: 2850,
-      date: '1/10/2024',
-      type: 'Deposit',
-    },
-    {
-      id: '3',
-      description: 'Withdrawal to Bank Account',
-      amount: 1500,
-      date: '1/5/2024',
-      type: 'Withdrawal',
-    },
-    {
-      id: '4',
-      description: 'Payment from Lisa Brown',
-      amount: 680,
-      date: '12/28/2023',
-      type: 'Deposit',
-    },
-  ];
+  earnings: Earning = {
+    id: '1',
+    availableBalance: 340,
+    pendingBalance: 100,
+    totalEarnings: 440,
+  };
 
   activeTabId = this.tabs[0].id;
 
