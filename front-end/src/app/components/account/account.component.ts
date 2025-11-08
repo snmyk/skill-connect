@@ -115,7 +115,7 @@ export class AccountComponent {
       service: 'Pipe Installation',
       completedDate: '12/28/2023',
       earnings: 680,
-      rating: 5,
+      rating: 3,
       review: 'Professional work. Highly recommend!',
     },
     {
