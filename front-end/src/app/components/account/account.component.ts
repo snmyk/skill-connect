@@ -7,7 +7,6 @@ import { Fund } from '../../models/account/fund.model';
 import { TabNavigationComponent } from '../tab-navigation/tab-navigation.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { CompletedJobsComponent } from '../completed-jobs/completed-jobs.component';
-import { FundsComponent } from '../funds/funds.component';
 
 @Component({
   selector: 'app-account',
@@ -17,7 +16,6 @@ import { FundsComponent } from '../funds/funds.component';
     TabNavigationComponent,
     InvoiceComponent,
     CompletedJobsComponent,
-    FundsComponent,
   ],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css',
