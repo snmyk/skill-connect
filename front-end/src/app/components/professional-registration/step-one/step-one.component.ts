@@ -53,6 +53,7 @@ export class StepOneComponent implements OnInit, OnDestroy {
     if (!this.formData.firstName?.trim()) errors.push('First name is required');
     if (!this.formData.lastName?.trim()) errors.push('Last name is required');
     if (!this.formData.email?.trim()) errors.push('Email is required');
+    if (!this.formData.password?.trim()) errors.push('Password is required');
     else if (!this.isValidEmail(this.formData.email))
       errors.push('Please enter a valid email address');
     if (!this.formData.phone?.trim()) errors.push('Phone number is required');
