@@ -12,7 +12,8 @@ export const AppDataSource = new DataSource({
   database: 'skill_connect',  // your DB name
   synchronize: false,               // auto sync entities -> tables (dev only)
   logging: false,
-  entities: ['./models/**/*.ts'],          // register your entities here
-  migrations: ['./migrations/**/*.ts'],
+  // Use runtime path so both TS (dev) and compiled JS (dist) work correctly
+  entities: [__dirname + '/../models/*.{js,ts}'],
+  migrations: [__dirname + '/../migrations/*.{js,ts}'],
   subscribers: [],
 });

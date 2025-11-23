@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import userRouter from './routers/user.router';
+import { AppDataSource } from './database/data-source';
 
 const app = express();
 dotenv.config({ path: '.env.local' });
@@ -14,10 +14,22 @@ app.get('/release', (req, res) => {
     res.json({ message: 'Welcome to the Dating App API', version: release_version });
 });
 
-//routes
-app.use('/api', userRouter);
-
 const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+// Initialize DB first, then load routers that depend on repositories
+AppDataSource.initialize()
+  .then(async () => {
+    console.log('Data source has been initialized.');
+
+    // Dynamic import so controller modules that grab repositories load after initialization
+    const userRouter = (await import('./routers/user.router')).default;
+    app.use('/api', userRouter);
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization:', err);
+    process.exit(1);
+  });

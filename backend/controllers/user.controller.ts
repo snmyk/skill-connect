@@ -2,14 +2,12 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { AppDataSource } from '../database/data-source'; // your TypeORM data source file
 import { UserEntity, User } from '../models/user.model'; // from the EntitySchema we made
-import { CreateUserDto } from '../dtos/user.dto';
+import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
 const userRepository = AppDataSource.getRepository(UserEntity);
 
 // Create User
 export const createUser = async (req: Request<{}, {}, CreateUserDto>, res: Response): Promise<Response> => {
-  console.log('Request body:', req.body);
-
   try {
     const { email, firebase_id } = req.body;
 
@@ -36,9 +34,9 @@ export const createUser = async (req: Request<{}, {}, CreateUserDto>, res: Respo
 };
 
 // Update User
-export const updateUser = async (req: Request, res: Response): Promise<Response> => {
+export const updateUser = async (req: Request<{}, {}, UpdateUserDto>, res: Response): Promise<Response> => {
   console.log('Request body:', req.body);
-  const { id } = req.params;
+  const { id } = req.body;
   if (!id) {
     return res.status(400).json({ error: 'User ID is required.' });
   }

@@ -8,5 +8,6 @@ export interface UpdateUserDto {
   display_name?: string;
   date_of_birth?: Date;
   gender?: string;
-  location?: object; // or GeoJSON type if you’re using PostGIS
+  location?: object;  
+  id: string;
 }
