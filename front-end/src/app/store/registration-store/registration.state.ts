@@ -15,6 +15,7 @@ export const initialState: RegistrationState = {
     email: '',
     phone: '',
     location: '',
+    password: '',
     primaryService: '',
     yearsExperience: '',
     hourlyRate: 0,

@@ -5,6 +5,7 @@ export interface ProfessionalApplication {
     email: string;
     phone: string;
     location: string;
+    password: string;
 
     // Step 2: Professional Details
     primaryService: string;
