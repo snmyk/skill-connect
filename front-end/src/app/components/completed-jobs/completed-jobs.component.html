@@ -1,0 +1,22 @@
+<div class="tab-content">
+  <div class="completed-jobs-section">
+    <div class="completed-jobs-header">
+      <h2 class="completed-jobs-title">Completed Jobs</h2>
+      <p class="completed-jobs-total">Total: {{ completedJobs.length }} jobs</p>
+    </div>
+
+    <div class="completed-jobs-list">
+      <div *ngFor="let job of completedJobs">
+        <app-completed-job-card
+          title="{{ job.service }}"
+          client="{{ job.client }}"
+          jobId="{{ job.jobId }}"
+          [amount]="job.earnings"
+          date="{{ job.completedDate }}"
+          [rating]="job.rating"
+          review="{{ job.review }}"
+        ></app-completed-job-card>
+      </div>
+    </div>
+  </div>
+</div>

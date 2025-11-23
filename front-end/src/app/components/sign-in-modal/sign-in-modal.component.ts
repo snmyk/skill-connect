@@ -46,7 +46,8 @@ export class SignInModalComponent implements OnInit, OnDestroy {
     // Subscribe to auth state to handle success/failure
     this.authSubscription = this.authState$.subscribe((authState) => {
       console.log('Auth state changed in sign-in modal:', authState);
-
+      console.log('isOpen state:', this.isOpen);
+      console.log('is authenticated:', authState.isAuthenticated);
       // Close modal on successful login
       if (authState.isAuthenticated && !authState.loading) {
         console.log('Login successful, closing modal');
