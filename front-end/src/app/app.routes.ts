@@ -1,14 +1,21 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './gaurds/auth/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowseProfessionalsComponent } from './pages/browse-professionals/browse-professionals.component';
 import { JoinProfessionalComponent } from './pages/professional-registration/join-professional.component';
 import { ViewProfessonalProfileComponent } from './pages/view-professonal-profile/view-professonal-profile.component';
 import { AccountDashboardComponent } from './pages/account-dashboard/account-dashboard.component';
+import { RegistrationConfirmationPageComponent } from './pages/registration-confirmation-page/registration-confirmation-page.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+  },
   {
     path: 'browse/professionals',
     component: BrowseProfessionalsComponent,
@@ -32,6 +39,10 @@ export const routes: Routes = [
   {
     path: 'account',
     component: AccountDashboardComponent,
+  },
+  {
+    path: 'confirmation',
+    component: RegistrationConfirmationPageComponent,
   },
   // Additional routes can be added here
 ];
