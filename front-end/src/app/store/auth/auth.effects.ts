@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import * as AuthActions from './auth.actions';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { catchError, map, mergeMap, of, from, tap, switchMap } from 'rxjs';
+import { catchError, map, mergeMap, of, tap, switchMap } from 'rxjs';
 import {
   showSuccessAlert,
   showErrorAlert,

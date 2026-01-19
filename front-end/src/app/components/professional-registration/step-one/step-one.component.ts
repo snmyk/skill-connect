@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfessionalApplication } from '../../../models/professional/professional-application.model';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
-import { updateRegistrationDetails } from '../../../store/registration-store/registration.action';
+import { updateRegistrationDetails } from '../../../store/registration-store/registration.actions';
 
 @Component({
   selector: 'app-step-one',

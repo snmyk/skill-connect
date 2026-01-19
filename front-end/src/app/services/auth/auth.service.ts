@@ -3,6 +3,14 @@ import { LoginResponse } from '../../models/auth/login-response.model';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, switchMap } from 'rxjs/operators';
 import { UserModel } from '../../models/user/user.model';
+import { ProfessionalApplication } from '../../models/professional/professional-application.model';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  UserCredential,
+} from '@angular/fire/auth';
+import { HttpClient } from '@angular/common/http';
+import { from } from 'rxjs';
 
 interface TokenValidationResponse {
   isValid: boolean;
@@ -13,7 +21,7 @@ interface TokenValidationResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor(private auth: Auth, private http: HttpClient) {}
 
   login(email: string, password: string): Observable<LoginResponse> {
     console.log('AuthService: Login called with email:', email);
@@ -106,5 +114,43 @@ export class AuthService {
     console.log(`AuthService: Password reset called for user ${email}`);
 
     return of(true);
+  }
+
+  register(professionalApplication: ProfessionalApplication) {
+    return from(
+      this.registerUserOnFirebase(
+        professionalApplication.email,
+        professionalApplication.password
+      )
+    ).pipe(
+      switchMap((firebaseRegistration) => {
+        if (!firebaseRegistration) {
+          throw new Error('Firebase registration failed');
+        }
+
+        const payload = {
+          idToken: firebaseRegistration,
+          user: professionalApplication,
+        };
+
+        console.log('AuthService: Professional registration called');
+
+        return this.http.post(
+          'http://localhost:3000/api/register_user',
+          payload
+        );
+      })
+    );
+  }
+
+  async registerUserOnFirebase(email: string, password: string) {
+    const userCredential: Promise<UserCredential> =
+      createUserWithEmailAndPassword(this.auth, email, password);
+    console.log('userCredential: ', userCredential);
+    const user = (await userCredential).user;
+    console.log(user);
+    const idToken = await user.getIdToken();
+    console.log(idToken);
+    return idToken;
   }
 }

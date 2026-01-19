@@ -8,7 +8,7 @@ import { ProfessionalApplication } from '../../models/professional/professional-
 import {
   updateRegistrationDetails,
   saveProgress,
-} from '../../store/registration-store/registration.action';
+} from '../../store/registration-store/registration.actions';
 import { Store } from '@ngrx/store';
 import {
   selectFullRegistrationState,
@@ -17,8 +17,14 @@ import {
 import { Observable } from 'rxjs';
 import { RegistrationState } from '../../store/registration-store/registration.state';
 import { AppState } from '../../store';
-import { Auth, createUserWithEmailAndPassword, UserCredential } from '@angular/fire/auth';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  UserCredential,
+} from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth/auth.service';
+import * as registrationActions from '../../store/registration-store/registration.actions';
 
 @Component({
   selector: 'app-join-professional',
@@ -40,7 +46,12 @@ export class JoinProfessionalComponent implements OnInit, OnDestroy {
   formData$: ProfessionalApplication = {} as ProfessionalApplication;
   registrationState$!: Observable<RegistrationState>;
 
-  constructor(private store: Store<AppState>, private auth: Auth, private http: HttpClient) {
+  constructor(
+    private store: Store<AppState>,
+    private auth: Auth,
+    private http: HttpClient,
+    private authService: AuthService
+  ) {
     this.registrationState$ = this.store.select(selectFullRegistrationState);
   }
 
@@ -108,16 +119,12 @@ export class JoinProfessionalComponent implements OnInit, OnDestroy {
 
   async submitApplication() {
     if (this.isFormValid()) {
-      const userCredential : Promise<UserCredential> = createUserWithEmailAndPassword(this.auth, this.formData$.email, this.formData$.password);
-      const user = (await userCredential).user;
-      const idToken = await user.getIdToken();
-      const payload = {
-        idToken,
-        user: this.formData$
-      };
-      const response = await this.http.post('http://localhost:3000/api/register_user', payload).toPromise();
-    console.log('Backend response:', response);
-
+      console.log('submitApplication');
+      this.store.dispatch(
+        registrationActions.register({
+          professionalApplication: this.formData$,
+        })
+      );
     } else {
       alert('Please complete all required fields before submitting.');
     }

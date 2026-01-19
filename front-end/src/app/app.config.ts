@@ -8,6 +8,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { reducers } from './store';
 import { provideStore } from '@ngrx/store';
 import { AuthEffects } from './store/auth/auth.effects';
+import { RegistrationEffects } from './store/registration-store/registration.effect';
 import { provideEffects } from '@ngrx/effects';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { FirebaseConfig } from '../FirebaseConfig';
@@ -21,6 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideStore(reducers),
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects, RegistrationEffects]),
   ],
 };
