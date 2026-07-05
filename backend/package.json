@@ -1,19 +1,18 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node dist/server.js",
-    "start:dev": "nodemon --watch './**/*.ts' --exec ts-node -r tsconfig-paths/register server.ts",
+    "start": "node src/server.js",
+    "start:dev": "nodemon src/server.js",
     "dev": "npm run start:dev",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --build",
-    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate ./migrations/addedReviewTableMigration -d ./database/data-source.ts",
-    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./database/data-source.ts",
-     "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./database/data-source.ts"
+    "migration:generate": "typeorm migration:generate src/migrations/NewMigration -d src/database/data-source.js",
+    "migration:run": "typeorm migration:run -d src/database/data-source.js",
+    "migration:revert": "typeorm migration:revert -d src/database/data-source.js"
   },
   "keywords": [],
-  "module": "esnext",
+  "type": "module",
   "author": "",
   "license": "ISC",
   "description": "",
@@ -31,11 +30,6 @@
     "typeorm": "^0.3.27"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3",
-    "@types/swagger-ui-express": "^4.1.8",
-    "nodemon": "^3.1.10",
-    "ts-node": "^10.9.2",
-    "tsconfig-paths": "^4.2.0"
+    "nodemon": "^3.1.10"
   }
 }
