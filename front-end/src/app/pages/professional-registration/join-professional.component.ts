@@ -112,10 +112,26 @@ export class JoinProfessionalComponent implements OnInit, OnDestroy {
       const user = (await userCredential).user;
       const idToken = await user.getIdToken();
       const payload = {
-        idToken,
-        user: this.formData$
+        firebaseId: idToken,
+        firstName: this.formData$.firstName,
+        lastName: this.formData$.lastName,
+        email: this.formData$.email,
+        phone: this.formData$.phone,
+        location: this.formData$.location,
+        primaryService: this.formData$.primaryService,
+        yearsExperience: this.formData$.yearsExperience,
+        hourlyRate: this.formData$.hourlyRate,
+        availability: this.formData$.availability,
+        skills: this.formData$.skills,
+        bio: this.formData$.bio,
       };
-      const response = await this.http.post('http://localhost:3000/api/register_user', payload).toPromise();
+      const response = await this.http.post("http://localhost:3000/api/users",
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${idToken}`
+        }
+      }).toPromise();
     console.log('Backend response:', response);
 
     } else {
