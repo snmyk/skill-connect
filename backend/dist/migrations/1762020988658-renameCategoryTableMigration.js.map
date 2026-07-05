@@ -1,1 +1,0 @@
-{"version":3,"file":"1762020988658-renameCategoryTableMigration.js","sourceRoot":"","sources":["../../migrations/1762020988658-renameCategoryTableMigration.ts"],"names":[],"mappings":";;;;;;;;;;;;AAEA,MAAa,yCAAyC;IAAtD;QACI,SAAI,GAAG,2CAA2C,CAAA;IAUtD,CAAC;IARgB,EAAE,CAAC,WAAwB;;YACpC,uNAAuN;QAC3N,CAAC;KAAA;IAEY,IAAI,CAAC,WAAwB;;YACtC,sDAAsD;QAC1D,CAAC;KAAA;CAEJ;AAXD,8FAWC"}
