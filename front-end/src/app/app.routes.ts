@@ -5,6 +5,7 @@ import { JoinProfessionalComponent } from './pages/professional-registration/joi
 import { ViewProfessonalProfileComponent } from './pages/view-professonal-profile/view-professonal-profile.component';
 import { AccountDashboardComponent } from './pages/account-dashboard/account-dashboard.component';
 import { RegistrationConfirmationPageComponent } from './pages/registration-confirmation-page/registration-confirmation-page.component';
+import { RegistrationErrorPageComponent } from './pages/registration-error-page/registration-error-page.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,10 @@ export const routes: Routes = [
   {
     path: 'register',
     component: JoinProfessionalComponent,
+  },
+  {
+    path: 'registration-failed',
+    component: RegistrationErrorPageComponent,
   },
   {
     path: 'reviews',

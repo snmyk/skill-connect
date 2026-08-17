@@ -57,6 +57,8 @@ export class StepOneComponent implements OnInit, OnDestroy {
     else if (!this.isValidEmail(this.formData.email))
       errors.push('Please enter a valid email address');
     if (!this.formData.phone?.trim()) errors.push('Phone number is required');
+    else if (!this.isValidPhoneNumber(this.formData.phone))
+      errors.push('Please enter a valid phone number');
     if (!this.formData.location?.trim()) errors.push('Location is required');
     return errors;
   }
@@ -64,5 +66,15 @@ export class StepOneComponent implements OnInit, OnDestroy {
   isValidEmail(email: string): boolean {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
+  }
+
+  isValidPhoneNumber(phone: string): boolean {
+    const phonePattern = /^[0]\d{9}$/;
+    return phonePattern.test(phone);
+  }
+
+  isValidPassword(password: string): boolean {
+    const passwordPattern = /^[a-zA-Z0-9]{8,}$/;
+    return passwordPattern.test(password);
   }
 }

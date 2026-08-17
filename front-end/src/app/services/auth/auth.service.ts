@@ -11,6 +11,7 @@ import {
 } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
 import { from } from 'rxjs';
+import { FirebaseRegistrationResponse } from '../../models/auth/firebase-registration-response.model';
 
 interface TokenValidationResponse {
   isValid: boolean;
@@ -21,7 +22,10 @@ interface TokenValidationResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth, private http: HttpClient) {}
+  constructor(
+    private auth: Auth,
+    private http: HttpClient,
+  ) {}
 
   login(email: string, password: string): Observable<LoginResponse> {
     console.log('AuthService: Login called with email:', email);
@@ -67,7 +71,7 @@ export class AuthService {
           console.log('AuthService: Login failed - invalid credentials');
           return throwError(() => new Error('Invalid email or password'));
         }
-      })
+      }),
     );
   }
 
@@ -78,7 +82,7 @@ export class AuthService {
   }
 
   validatePasswordResetToken(
-    token: string
+    token: string,
   ): Observable<TokenValidationResponse> {
     // Simulate API delay and token validation
     return of(null).pipe(
@@ -102,10 +106,10 @@ export class AuthService {
         };
         console.log(
           `AuthService: Password reset token validation result for token "${token}":`,
-          isValid
+          isValid,
         );
         return of(validationResponse);
-      })
+      }),
     );
   }
 
@@ -120,11 +124,18 @@ export class AuthService {
     return from(
       this.registerUserOnFirebase(
         professionalApplication.email,
-        professionalApplication.password
-      )
+        professionalApplication.password,
+      ),
     ).pipe(
       switchMap((firebaseRegistration) => {
-        if (!firebaseRegistration) {
+        if (
+          !firebaseRegistration.isSuccessful ||
+          !firebaseRegistration.idToken
+        ) {
+          console.error(
+            'AuthService: Firebase registration failed:',
+            firebaseRegistration.errorMessage,
+          );
           throw new Error('Firebase registration failed');
         }
 
@@ -137,20 +148,26 @@ export class AuthService {
 
         return this.http.post(
           'http://localhost:3000/api/register_user',
-          payload
+          payload,
         );
-      })
+      }),
     );
   }
 
   async registerUserOnFirebase(email: string, password: string) {
-    const userCredential: Promise<UserCredential> =
-      createUserWithEmailAndPassword(this.auth, email, password);
-    console.log('userCredential: ', userCredential);
-    const user = (await userCredential).user;
-    console.log(user);
-    const idToken = await user.getIdToken();
-    console.log(idToken);
-    return idToken;
+    try {
+      // const userCredential: Promise<UserCredential> =
+      //   createUserWithEmailAndPassword(this.auth, email, password);
+      // console.log('userCredential: ', userCredential);
+      // console.log('awaited userCredential: ', await userCredential);
+      // const user = (await userCredential).user;
+      // console.log(user);
+      // const idToken = await user.getIdToken();
+      // console.log(idToken);
+      return { isSuccessful: true, idToken: 'fake-id-token' };
+    } catch (error) {
+      console.error('Error during Firebase registration:', error);
+      return { isSuccessful: false, errorMessage: error };
+    }
   }
 }

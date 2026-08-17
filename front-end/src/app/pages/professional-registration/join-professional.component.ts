@@ -50,7 +50,7 @@ export class JoinProfessionalComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private auth: Auth,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.registrationState$ = this.store.select(selectFullRegistrationState);
   }
@@ -94,7 +94,7 @@ export class JoinProfessionalComponent implements OnInit, OnDestroy {
             canSubmit: false,
             isComplete: false,
           },
-        })
+        }),
       );
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -111,7 +111,7 @@ export class JoinProfessionalComponent implements OnInit, OnDestroy {
             canSubmit: false,
             isComplete: false,
           },
-        })
+        }),
       );
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -119,11 +119,11 @@ export class JoinProfessionalComponent implements OnInit, OnDestroy {
 
   async submitApplication() {
     if (this.isFormValid()) {
-      console.log('submitApplication');
+      console.log('submitApplication', this.formData$);
       this.store.dispatch(
         registrationActions.register({
           professionalApplication: this.formData$,
-        })
+        }),
       );
     } else {
       alert('Please complete all required fields before submitting.');
