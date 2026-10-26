@@ -44,7 +44,7 @@ jobs:
             - name: Upload build artifact
               uses: actions/upload-pages-artifact@v3
               with:
-                  path: skill-connect/front-end/dist/front-end/browser
+                  path: front-end/dist/front-end/browser
 
     deploy:
         environment:
