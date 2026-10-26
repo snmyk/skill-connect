@@ -1,0 +1,36 @@
+<header class="bg-white px-4 border-b border-gray-200">
+  <div class="flex items-center justify-between h-16">
+    <div class="text-2xl font-bold italic">
+      <span class="text-primary-color">Skill</span>
+      <span class="text-secondary-color">Connect</span>
+    </div>
+
+    <nav class="flex space-x-4 items-center">
+      <a href="/home" class="text-link-color">Home</a>
+      <a href="/browse/professionals" class="text-link-color">Browse Professionals</a>
+
+      <!-- <ng-container *ngIf="isAuthenticated; else notAuthenticated">
+        <a href="/account" class="nav-link">Account</a>
+      </ng-container> -->
+
+      <ng-template #notAuthenticated>
+        <a href="/register" class="nav-link">Join as Professional</a>
+      </ng-template>
+    </nav>
+
+    <button class="button-primary">Sign In</button>
+  </div>
+  <!-- <app-sign-in-modal
+    [isOpen]="isSignInModalOpen"
+    (close)="closeSignInModal()"
+    (signIn)="handleSignIn($event)"
+    (forgotPassword)="handleForgotPassword()"
+    (signUp)="handleSignUp()"
+  ></app-sign-in-modal>
+  <app-forgot-password-modal
+    [isOpen]="isForgotPasswordModalOpen"
+    (close)="closeForgotPasswordModal()"
+    (sendResetLink)="handleSendResetLink($event)"
+    (backToSignIn)="handleBackToSignIn()"
+  ></app-forgot-password-modal> -->
+</header>
