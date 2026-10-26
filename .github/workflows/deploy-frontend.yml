@@ -5,7 +5,7 @@ on:
         branches:
             - master
         paths:
-            - "skill-connect/front-end/**"
+            - "front-end/**"
             - ".github/workflows/deploy-frontend.yml"
     workflow_dispatch:
 
